@@ -91,12 +91,11 @@ export const toogleProduct = async (request, response) => {
 			});
 		}
 
-		const toogledProduct = { 
-			...product._doc, 
-			state: !product._doc.state 
-		}
-
-		const updatedProduct = await Product.findByIdAndUpdate( id, toogledProduct, { new: true } );
+		const updatedProduct = await Product.findByIdAndUpdate( 
+			id, 
+			{ state: !product._doc.state }, 
+			{ new: true } 
+		);
 
 		return response.json({
 			ok: true,

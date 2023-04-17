@@ -19,7 +19,7 @@ export const getCategory = async (request, response) => {
 	try {
 		const { id } = request.params;
 		
-		const [ category ] = await Category.find({ _id: id });
+		const category = await Category.findById( id );
 
 		if ( !category ) {
 			return response.status(404).json({
@@ -99,12 +99,11 @@ export const toogleCategory = async (request, response) => {
 			});
 		}
 
-		const toogledCategory = { 
-			...category._doc, 
-			state: !category._doc.state 
-		}
-
-		const updatedCategory = await Category.findByIdAndUpdate( id, toogledCategory, { new: true } );
+		const updatedCategory = await Category.findByIdAndUpdate( 
+			id, 
+			{ state: !category._doc.state }, 
+			{ new: true } 
+		);
 
 		return response.json({
 			ok: true,

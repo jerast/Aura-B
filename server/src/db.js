@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { DB_CNN } from './config.js';
+import { DB_CNN, DB_OFF } from './config.js';
 
 export const connectDB = async () => {
 	try {
