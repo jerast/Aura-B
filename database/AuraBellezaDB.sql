@@ -179,8 +179,8 @@ USE AuraBellezaDB;
 
 	INSERT INTO orders (user_id, date, total_prize, state_id, wholesale) VALUES
 		("ABC1", "2022-06-17 19:57:14", 8500, 1, false),
-		("ABC3", "2023-01-12 12:30:00", 11100, 1, true),
-		("ABC1", "2023-02-01 11:00:00", 36500, 3, false);
+		("ABC3", "2023-01-12 12:30:00", 12900, 1, true),
+		("ABC1", "2023-02-01 11:00:00", 41500, 3, false);
 
 	INSERT INTO order_details (order_id, product_id, unit_prize, count) VALUES
 		(1, 4, 3500, 1),
@@ -192,7 +192,7 @@ USE AuraBellezaDB;
 		(2, 13, 4500, 1),
 		(3, 3, 30000, 1),
 		(3, 8, 1500, 1),
-		(3, 13, 5000, 2);
+		(3, 13, 5000, 1);
 
 	INSERT INTO inventory (product_id, stock) VALUES
 		(1, 10),
