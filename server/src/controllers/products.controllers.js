@@ -7,10 +7,9 @@ export const getProducts = async (request, response) => {
 
 		return response.json({
 			ok: true,
-			products
+			products,
 		});
-	} 
-	catch (error) {
+	} catch (error) {
 		getError(response, error);
 	}
 };
@@ -18,10 +17,10 @@ export const getProducts = async (request, response) => {
 export const getProduct = async (request, response) => {
 	try {
 		const { id } = request.params;
-		
-		const product = await Product.findById( id );
 
-		if ( !product ) {
+		const product = await Product.findById(id);
+
+		if (!product) {
 			return response.status(404).json({
 				ok: false,
 				message: `Product not found`,
@@ -30,10 +29,9 @@ export const getProduct = async (request, response) => {
 
 		return response.json({
 			ok: true,
-			product
+			product,
 		});
-	} 
-	catch (error) {
+	} catch (error) {
 		getError(response, error);
 	}
 };
@@ -45,10 +43,9 @@ export const createProduct = async (request, response) => {
 
 		return response.json({
 			ok: true,
-			product
+			product,
 		});
-	}
-	catch (error) {
+	} catch (error) {
 		getError(response, error);
 	}
 };
@@ -57,23 +54,26 @@ export const updateProduct = async (request, response) => {
 	try {
 		const { id } = request.params;
 
-		const product = await Product.findById( id );
+		const product = await Product.findById(id);
 
-		if ( !product ) {
+		if (!product) {
 			return response.status(404).json({
 				ok: false,
 				message: `Product not found`,
 			});
 		}
 
-		const updatedProduct = await Product.findByIdAndUpdate( id, { ...request.body }, { new: true } );
+		const updatedProduct = await Product.findByIdAndUpdate(
+			id,
+			{ ...request.body },
+			{ new: true }
+		);
 
 		return response.json({
 			ok: true,
 			product: updatedProduct,
 		});
-	}
-	catch (error) {
+	} catch (error) {
 		getError(response, error);
 	}
 };
@@ -82,27 +82,26 @@ export const toogleProduct = async (request, response) => {
 	try {
 		const { id } = request.params;
 
-		const product = await Product.findById( id );
-		
-		if ( !product ) {
+		const product = await Product.findById(id);
+
+		if (!product) {
 			return response.status(404).json({
 				ok: false,
 				message: `Product not found`,
 			});
 		}
 
-		const updatedProduct = await Product.findByIdAndUpdate( 
-			id, 
-			{ state: !product._doc.state }, 
-			{ new: true } 
+		const updatedProduct = await Product.findByIdAndUpdate(
+			id,
+			{ state: !product._doc.state },
+			{ new: true }
 		);
 
 		return response.json({
 			ok: true,
-			product: updatedProduct
+			product: updatedProduct,
 		});
-	}
-	catch (error) {
+	} catch (error) {
 		getError(response, error);
 	}
 };
@@ -111,23 +110,22 @@ export const deleteProduct = async (request, response) => {
 	try {
 		const { id } = request.params;
 
-		const product = await Product.findById( id );
-		
-		if ( !product ) {
+		const product = await Product.findById(id);
+
+		if (!product) {
 			return response.status(404).json({
 				ok: false,
 				message: `Product not found`,
 			});
 		}
 
-		await Product.findByIdAndDelete( id );
+		await Product.findByIdAndDelete(id);
 
 		return response.json({
 			ok: true,
 			message: 'Product deleted',
 		});
-	}
-	catch (error) {
+	} catch (error) {
 		getError(response, error);
 	}
 };

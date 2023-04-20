@@ -12,10 +12,10 @@ const categorySquema = Schema({
 	state: {
 		type: Boolean,
 		default: true,
-	}
+	},
 });
 
-categorySquema.method('toJSON', function() {
+categorySquema.method('toJSON', function () {
 	const { __v, _id, ...object } = this.toObject();
 	return { id: _id, ...object };
 });

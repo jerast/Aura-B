@@ -17,15 +17,15 @@ const userSquema = Schema({
 	},
 	role: {
 		type: Number,
-		default: 1
+		default: 1,
 	},
 	state: {
 		type: Boolean,
-		default: true
-	}
+		default: true,
+	},
 });
 
-userSquema.method('toJSON', function() {
+userSquema.method('toJSON', function () {
 	const { __v, _id, ...object } = this.toObject();
 	return { id: _id, ...object };
 });

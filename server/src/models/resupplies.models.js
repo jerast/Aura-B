@@ -1,7 +1,19 @@
 import { Schema, model } from 'mongoose';
 
 const resupplySquema = Schema({
-	
+	reference: {
+		type: String,
+		required: true,
+		unique: true,
+	},
+   date: {
+      type: Date,
+		default: new Date(),
+   },
+   total_price: {
+      type: Number,
+      required: true,
+   },
 });
 
 resupplySquema.method('toJSON', function() {

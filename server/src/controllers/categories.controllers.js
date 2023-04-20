@@ -7,10 +7,9 @@ export const getCategories = async (request, response) => {
 
 		return response.json({
 			ok: true,
-			categories
+			categories,
 		});
-	} 
-	catch (error) {
+	} catch (error) {
 		getError(response, error);
 	}
 };
@@ -18,10 +17,10 @@ export const getCategories = async (request, response) => {
 export const getCategory = async (request, response) => {
 	try {
 		const { id } = request.params;
-		
-		const category = await Category.findById( id );
 
-		if ( !category ) {
+		const category = await Category.findById(id);
+
+		if (!category) {
 			return response.status(404).json({
 				ok: false,
 				message: `Category not found`,
@@ -30,10 +29,9 @@ export const getCategory = async (request, response) => {
 
 		return response.json({
 			ok: true,
-			category
+			category,
 		});
-	} 
-	catch (error) {
+	} catch (error) {
 		getError(response, error);
 	}
 };
@@ -45,10 +43,9 @@ export const createCategory = async (request, response) => {
 
 		return response.json({
 			ok: true,
-			category
+			category,
 		});
-	}
-	catch (error) {
+	} catch (error) {
 		getError(response, error);
 	}
 };
@@ -58,30 +55,33 @@ export const updateCategory = async (request, response) => {
 		const { id } = request.params;
 		const { name, description } = request.body;
 
-		const category = await Category.findById( id );
-		
-		if ( !category ) {
+		const category = await Category.findById(id);
+
+		if (!category) {
 			return response.status(404).json({
 				ok: false,
 				message: `Category not found`,
 			});
 		}
 
-		if ( !name && !description ) {
+		if (!name && !description) {
 			return response.status(404).json({
 				ok: false,
 				message: `Request can't be null`,
 			});
 		}
 
-		const updatedCategory = await Category.findByIdAndUpdate( id, { ...request.body }, { new: true } );
+		const updatedCategory = await Category.findByIdAndUpdate(
+			id,
+			{ ...request.body },
+			{ new: true }
+		);
 
 		return response.json({
 			ok: true,
-			category: updatedCategory
+			category: updatedCategory,
 		});
-	}
-	catch (error) {
+	} catch (error) {
 		getError(response, error);
 	}
 };
@@ -90,52 +90,50 @@ export const toogleCategory = async (request, response) => {
 	try {
 		const { id } = request.params;
 
-		const category = await Category.findById( id );
-		
-		if ( !category ) {
+		const category = await Category.findById(id);
+
+		if (!category) {
 			return response.status(404).json({
 				ok: false,
 				message: `Category not found`,
 			});
 		}
 
-		const updatedCategory = await Category.findByIdAndUpdate( 
-			id, 
-			{ state: !category._doc.state }, 
-			{ new: true } 
+		const updatedCategory = await Category.findByIdAndUpdate(
+			id,
+			{ state: !category._doc.state },
+			{ new: true }
 		);
 
 		return response.json({
 			ok: true,
-			category: updatedCategory
+			category: updatedCategory,
 		});
-	}
-	catch (error) {
+	} catch (error) {
 		getError(response, error);
 	}
-}
+};
 
 export const deleteCategory = async (request, response) => {
 	try {
 		const { id } = request.params;
 
-		const category = await Category.findById( id );
-		
-		if ( !category ) {
+		const category = await Category.findById(id);
+
+		if (!category) {
 			return response.status(404).json({
 				ok: false,
 				message: `Category not found`,
 			});
 		}
 
-		await Category.findByIdAndDelete( id );
+		await Category.findByIdAndDelete(id);
 
 		return response.json({
 			ok: true,
 			message: 'Category deleted',
 		});
-	}
-	catch (error) {
+	} catch (error) {
 		getError(response, error);
 	}
 };

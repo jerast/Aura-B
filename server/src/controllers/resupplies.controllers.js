@@ -1,142 +1,96 @@
 import { getError } from '../middlewares/getError.js';
 import Resupply from '../models/resupplies.models.js';
+import ResupplyProduct from '../models/resupplyProducts.models.js';
+import Product from '../models/products.models.js';
 
 export const getResupplies = async (request, response) => {
 	try {
-		const resupplies = await Resupply.find();
+		const { field, value } = request.body;
 
-		return response.json({
-			ok: true,
-			resupplies
-		});
-	} 
-	catch (error) {
-		getError(response, error);
-	}
-};
+		let ressuplies;
 
-export const getResupply = async (request, response) => {
-	try {
-		const { id } = request.params;
-		
-		const [ category ] = await Category.find({ _id: id });
+		if (!field || !value) {
+			ressuplies = await Resupply.find();
+		}
 
-		if ( !category ) {
-			return response.status(404).json({
-				ok: false,
-				message: `Category not found`,
-			});
+		if (field && value) {
+			ressuplies = await Resupply.find({ [field]: value });
 		}
 
 		return response.json({
 			ok: true,
-			category
+			ressuplies,
 		});
-	} 
-	catch (error) {
+	} catch (error) {
 		getError(response, error);
 	}
 };
 
 export const createResupply = async (request, response) => {
 	try {
-		const category = new Category({ ...request.body });
-		await category.save();
+		const resupply = new Resupply({ ...request.body });
+		await resupply.save();
 
 		return response.json({
 			ok: true,
-			category
+			resupply,
 		});
-	}
-	catch (error) {
+	} catch (error) {
 		getError(response, error);
 	}
 };
 
-export const updateResupply = async (request, response) => {
+export const getResupplyProducts = async (request, response) => {
 	try {
 		const { id } = request.params;
-		const { name, description } = request.body;
 
-		const category = await Category.findById( id );
-		
-		if ( !category ) {
+		const resupply = await Resupply.findById(id, { _id: 0, __v: 0 });
+
+		if (!resupply) {
 			return response.status(404).json({
 				ok: false,
-				message: `Category not found`,
+				message: `Resupply not found`,
 			});
 		}
 
-		if ( !name && !description ) {
-			return response.status(404).json({
-				ok: false,
-				message: `Request can't be null`,
-			});
-		}
-
-		const updatedCategory = await Category.findByIdAndUpdate( id, { ...request.body }, { new: true } );
+		const details = await ResupplyProduct.find({ resupply_id: id }, { _id: 0, resupply_id: 0 });
 
 		return response.json({
 			ok: true,
-			category: updatedCategory
+			resupply: {
+				...resupply._doc,
+				details,
+			},
 		});
-	}
-	catch (error) {
+	} catch (error) {
 		getError(response, error);
 	}
 };
 
-export const toogleResupply = async (request, response) => {
+export const createResupplyProduct = async (request, response) => {
 	try {
 		const { id } = request.params;
+		const { product_id, count } = request.body;
 
-		const category = await Category.findById( id );
-		
-		if ( !category ) {
+		const resupply = await Resupply.findById(id);
+		if (!resupply) {
 			return response.status(404).json({
 				ok: false,
-				message: `Category not found`,
+				message: `Resupply not found`,
 			});
 		}
 
-		const toogledCategory = { 
-			...category._doc, 
-			state: !category._doc.state 
-		}
+		const product = await Product.findById(product_id);
+		await Product.findByIdAndUpdate(product_id, { stock: product.stock + count });
 
-		const updatedCategory = await Category.findByIdAndUpdate( id, toogledCategory, { new: true } );
-
-		return response.json({
-			ok: true,
-			category: updatedCategory
-		});
-	}
-	catch (error) {
-		getError(response, error);
-	}
-}
-
-export const deleteResupply = async (request, response) => {
-	try {
-		const { id } = request.params;
-
-		const category = await Category.findById( id );
-		
-		if ( !category ) {
-			return response.status(404).json({
-				ok: false,
-				message: `Category not found`,
-			});
-		}
-
-		await Category.findByIdAndDelete( id );
+		const resupplyProduct = new ResupplyProduct({ resupply_id: id, ...request.body });
+		await resupplyProduct.save();
 
 		return response.json({
 			ok: true,
-			message: 'Category deleted',
+			resupplyProduct,
 		});
-	}
-	catch (error) {
+	} catch (error) {
 		getError(response, error);
 	}
 };

@@ -1,9 +1,9 @@
 import { Schema, model } from 'mongoose';
 
-const orderProductSquema = Schema({
-	order_id: {
+const resupplyProductSquema = Schema({
+	resupply_id: {
 		type: Schema.Types.ObjectId,
-		ref: 'Order',
+		ref: 'Resupply',
 		required: true,
 	},
 	product_id: {
@@ -11,15 +11,9 @@ const orderProductSquema = Schema({
 		ref: 'Product',
 		required: true,
 	},
-	prices: {
-		retail: {
-			type: Number,
-			required: true,
-		},
-		wholesale: {
-			type: Number,
-			required: true,
-		},
+	unit_price: {
+		type: Number,
+		required: true,
 	},
 	count: {
 		type: Number,
@@ -27,9 +21,9 @@ const orderProductSquema = Schema({
 	},
 });
 
-orderProductSquema.method('toJSON', function () {
+resupplyProductSquema.method('toJSON', function () {
 	const { __v, _id, ...object } = this.toObject();
 	return { id: _id, ...object };
 });
 
-export default model('OrderProduct', orderProductSquema);
+export default model('ResupplyProduct', resupplyProductSquema);

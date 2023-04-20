@@ -3,4 +3,4 @@ export const getError = (response, error) =>
 		info: 'Something goes wrong with controllers',
 		message: error.message,
 		log: error,
-});
+	});

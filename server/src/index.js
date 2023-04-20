@@ -1,4 +1,3 @@
-
 import app from './app.js';
 import { connectDB } from './db.js';
 import { PORT } from './config.js';
@@ -6,4 +5,4 @@ import { PORT } from './config.js';
 connectDB();
 
 app.listen(PORT);
-console.log('Server running on port', PORT); 
+console.log('Server running on port', PORT);
