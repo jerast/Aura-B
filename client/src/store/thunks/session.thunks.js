@@ -1,4 +1,4 @@
-import { onChecking, onLogin } from '@/store';
+import { onChecking, onLogin, onLogout } from '@/store';
 
 export const startLogin = () => 
 	async (dispatch, getState) => {
