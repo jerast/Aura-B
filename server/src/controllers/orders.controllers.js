@@ -5,7 +5,7 @@ import Product from '../models/products.models.js';
 
 export const getOrders = async (request, response) => {
 	try {
-		const { field, value } = request.body;
+		const { field, value } = request.headers;
 
 		let orders;
 

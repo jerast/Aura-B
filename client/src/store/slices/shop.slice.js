@@ -15,10 +15,10 @@ export const shopSlice = createSlice({
 			state.products = payload;
 		},
 		onLoadStarts: (state) => {
-			state.isLoading = false;
+			state.isLoading = true;
 		},
 		onLoadEnds: (state) => {
-			state.isLoading = true;
+			state.isLoading = false;
 		},
 	},
 });

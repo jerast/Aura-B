@@ -1,6 +1,11 @@
 import { Schema, model } from 'mongoose';
 
 const userSquema = Schema({
+	dni: {
+		type: Number,
+		required: true,
+		unique: true,
+	},
 	name: {
 		type: String,
 		required: true,
@@ -14,6 +19,9 @@ const userSquema = Schema({
 		type: Number,
 		required: true,
 		unique: true,
+	},
+	gender: {
+		type: String,
 	},
 	role: {
 		type: Number,

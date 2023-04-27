@@ -5,13 +5,13 @@ export const sessionSlice = createSlice({
 	initialState: {
 		status: 'not-auth', // 'auth', 'not-auth'
 		user: {},
+		orders: [],
+		activeOrder: undefined,
 		errorMessage: undefined,
 	},
 	reducers: {
 		onChecking: (state) => {
 			state.status = 'checking';
-			state.user = {};
-			state.errorMessage = undefined;
 		},
 		onLogin: (state, { payload }) => {
 			state.status = 'auth';
@@ -21,7 +21,18 @@ export const sessionSlice = createSlice({
 		onLogout: (state, { payload }) => {
 			state.status = 'not-auth';
 			state.user = {};
+			state.orders = [];
+			state.activeOrder = undefined,
 			state.errorMessage = payload;
+		},
+		onLoadOrders: (state, { payload = [] }) => {
+			state.orders = payload;
+		},
+		setActiveOrder: (state, { payload }) => {
+			state.activeOrder = payload;
+		},
+		clearActiveOrder: (state) => {
+			state.activeOrder = undefined;
 		},
 		setErrorMessage: (state, { payload }) => {
 			state.errorMessage = payload;
@@ -36,6 +47,9 @@ export const {
    onChecking, 
    onLogin, 
    onLogout, 
+	onLoadOrders, 
    setErrorMessage, 
-   clearErrorMessage 
+   clearErrorMessage,
+	setActiveOrder,
+	clearActiveOrder, 
 } = sessionSlice.actions;

@@ -1,45 +1,44 @@
-// import { ShopPage } from '@/modules/shop';
 import { useEffect } from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-
-import { startLoadingCategories, startLogin } from '@/store';
-import { AuthPage } from '@/modules/auth';
-import { ShopPage } from '@/modules/shop';
+import { AdminRoutes, PublicRoutes, UserRoutes } from '.';
+import { startLoadingCategories, startLoadingOrders, startLoadingProducts, startVerifyingSession } from '@/store';
+import { setLastPath } from '@/helpers';
 
 export const AppRoutes = () => {
-
-	const session = useSelector( state =>  state.session );
-	const shop = useSelector( state =>  state.shop );
+	const { status, user } = useSelector( state => state.session );
 	const dispatch = useDispatch();
-	
+
 	useEffect(() => {
+		(async () => {
+			dispatch( startLoadingProducts() );
+			dispatch( startLoadingCategories() );
+			dispatch( startVerifyingSession() );
+		})();
+	}, []);
 
-		dispatch( startLoadingCategories() );
-		dispatch( startLogin() );
+	useEffect(() => {
+		if (status === 'auth') dispatch( startLoadingOrders() );
+	}, [ status ]);
 
-   }, []);
-
-	if ( session.status === 'checking' ) 
-		return <h1>Loading...</h1>;
+	setLastPath();
 
 	return (
-		<Routes>
-			{
-				( session.status === 'auth' )
-					? (
-						<>
-							<Route path="/" element={ <ShopPage /> } />
-							<Route path="/*" element={ <Navigate to="/" /> } />
-						</>
-					)
-					: (
-						<>
-							<Route path="/auth" element={ <AuthPage /> } />
-							<Route path="/*" element={ <Navigate to="/auth" /> } />
-						</>
-					)
-			}
-		</Routes>
+		<main>
+			<Routes>
+				{
+					( !user?.role || user.role === 'customer' ) 
+						&& <Route path="/*" element={ <PublicRoutes /> } />
+				}
+				{
+					user.role !== 'customer'
+						&& <Route path="/*" element={ <AdminRoutes /> } /> 
+				}
+				{
+					user.role !== 'admin'
+						&& <Route path="/account/*" element={<UserRoutes />} />
+				}
+			</Routes>
+		</main>
 	);
 };
