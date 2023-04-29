@@ -11,10 +11,14 @@ export const OrderPage = () => {
 	const dispatch = useDispatch();
 	
 	useEffect(() => { 
-		dispatch( startLoadingSelectedOrder(id) );
+		dispatch(startLoadingSelectedOrder(id));
 	}, [orders]);
+	
+	useEffect(() => { 
+		return () => dispatch(clearActiveOrder()); 
+	}, []);
 
-	useEffect(() => () => dispatch( clearActiveOrder() ), []);
+  // TODO: Fix bug 'Order not found'
 
 	if ( !activeOrder || !products.length ) return (
 		<>

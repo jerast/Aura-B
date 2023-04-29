@@ -3,16 +3,15 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from '@/store';
-import { AppRoutes } from '@/routes';
-import { Navbar } from '@/interface';
-// import './index.css'
+import './main.css';
+import { App } from './App';
 
+// TODO: Refactoring App.jsx
 ReactDOM.createRoot( document.getElementById('root') ).render(
 	// <React.StrictMode>
 		<Provider store={ store }>
 			<BrowserRouter>
-				<Navbar />
-				<AppRoutes />
+				<App />
 			</BrowserRouter>
 		</Provider>
 	// </React.StrictMode>

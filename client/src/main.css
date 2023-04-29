@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities; 
+
+@layer components {
+
+   #root {
+      @apply relative min-h-screen flex flex-col;
+   }
+   * {
+      @apply ease-in-out duration-300;
+   }
+   .main {
+      @apply relative grow
+   }
+
+   .Navbar {
+      @apply h-16 flex items-center gap-5 border-b;
+   }
+   .Navbar__search {
+      @apply flex-grow;
+   }
+   .Navbar__search-input {
+      @apply w-full;
+   }
+   
+   .Sidebar {
+      @apply absolute w-full h-full top-0 z-10 
+   }
+   .Sidebar__backdrop {
+      @apply absolute -z-10 bg-black bg-opacity-40 w-full h-full
+   }
+   .Sidebar__content {
+      @apply absolute bg-white h-full w-80 
+   }
+}

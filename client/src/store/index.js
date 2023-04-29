@@ -1,4 +1,5 @@
 // Slices
+export * from './slices/app.slice';
 export * from './slices/session.slice';
 export * from './slices/shop.slice';
 

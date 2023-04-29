@@ -12,6 +12,8 @@ export const startLogin = () =>
 	async (dispatch, getState) => {
 		try {
 			dispatch( onChecking() );
+
+			// TODO: User session request
 			localStorage.setItem( 'user', JSON.stringify(user) );
 			dispatch( onLogin( user ) );
 		} catch (error) {

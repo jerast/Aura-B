@@ -9,11 +9,10 @@ export const ProductsPage = () => {
 	const { products, isLoading } = useSelector( state => state.shop );
 	const { search } = useLocation();
 
-	useEffect(
-		() => {
-			if ( search ) console.log( queryParams( search ) );
-		}, 
-	[])
+	// TODO: Add products filter
+	useEffect(() => {
+		if ( search ) console.log( queryParams( search ) );
+	}, []);
 
 	if ( isLoading ) return (
 		<>

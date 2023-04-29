@@ -1,10 +1,9 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { startLogin } from '@/store';
 import { getLastPath } from '@/helpers';
 
 export const LoginPage = () => {
-	const { status } = useSelector( state => state.session );
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
@@ -13,7 +12,8 @@ export const LoginPage = () => {
 		navigate( getLastPath(), { replace: true });
 	};
 
-	if ( status === 'auth' ) return <Navigate to={ '/' } />;
+	if ( localStorage.getItem('user') ) 
+		return <Navigate to={ '/' } />;
 
 	return (
 		<>

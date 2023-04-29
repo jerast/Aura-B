@@ -1,44 +1,47 @@
-import { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { AdminRoutes, PublicRoutes, UserRoutes } from '.';
-import { startLoadingCategories, startLoadingOrders, startLoadingProducts, startVerifyingSession } from '@/store';
-import { setLastPath } from '@/helpers';
+import { AdminRoutes, PublicRoutes, UserRoutes } from '@/routes';
+import { useAppRoutes } from '@/hooks';
 
 export const AppRoutes = () => {
-	const { status, user } = useSelector( state => state.session );
-	const dispatch = useDispatch();
+	
+	const { user } = useAppRoutes();
 
-	useEffect(() => {
-		(async () => {
-			dispatch( startLoadingProducts() );
-			dispatch( startLoadingCategories() );
-			dispatch( startVerifyingSession() );
-		})();
-	}, []);
-
-	useEffect(() => {
-		if (status === 'auth') dispatch( startLoadingOrders() );
-	}, [ status ]);
-
-	setLastPath();
-
+	// TODO: Reorder public and private pages
 	return (
-		<main>
-			<Routes>
-				{
-					( !user?.role || user.role === 'customer' ) 
-						&& <Route path="/*" element={ <PublicRoutes /> } />
-				}
-				{
-					user.role !== 'customer'
-						&& <Route path="/*" element={ <AdminRoutes /> } /> 
-				}
-				{
-					user.role !== 'admin'
-						&& <Route path="/account/*" element={<UserRoutes />} />
-				}
-			</Routes>
-		</main>
+		<Routes>
+			{
+				(!user?.role || user.role === 'customer') 
+					&& <Route path="/*" element={ <PublicRoutes /> } />
+			}
+			{
+				user.role !== 'customer'
+					&& <Route path="/*" element={ <AdminRoutes /> } /> 
+			}
+			{
+				user.role !== 'admin'
+					&& <Route path="/account/*" element={<UserRoutes />} />
+			}
+		</Routes>
 	);
 };
+
+
+   // const handlePublicRoutes = () => (
+	// 	<>
+	// 		<NavLink to="/">Home</NavLink>
+	// 		<NavLink to="/categories">Categories</NavLink>
+	// 		<NavLink to="/products">Products</NavLink>
+	// 	</>
+	// );
+
+	// const handleCustomerRoutes = () => (
+	// 	<>
+	// 		<NavLink to="/account/">MyAccount</NavLink>
+	// 		<NavLink to="/account/orders">MyOrders</NavLink>
+	// 		<button>ShoppingCart</button>
+	// 	</>
+	// );
+	
+	// const handleAdminRoutes = () => (
+	// 	<NavLink to="/admin/">Admin</NavLink>
+	// );

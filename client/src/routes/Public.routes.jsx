@@ -1,4 +1,3 @@
-import { useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import { LoginPage } from '@/modules/session';
 import { CategoriesPage, ProductsPage, ShopPage } from '@/modules/shop';

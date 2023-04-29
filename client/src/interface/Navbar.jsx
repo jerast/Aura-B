@@ -1,6 +1,7 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { startLogout } from '@/store';
+import { MdMenu } from 'react-icons/md';
+import { onToogleSidebar, startLogout } from '@/store';
 
 export const Navbar = () => {
 	const { status, user } = useSelector((state) => state.session);
@@ -13,28 +14,23 @@ export const Navbar = () => {
 	};
 
 	return (
-		<nav>
-			{
-				user.role !== 'admin' && (
-					<>
-						<NavLink to="/">Home</NavLink>
-						<NavLink to="/categories">Categories</NavLink>
-						<NavLink to="/products">Products</NavLink>
-					</>
-				)
-			}
-			{
-				user.role === 'customer' && (
-					<>
-						<NavLink to="/account/">MyAccount</NavLink>
-						<NavLink to="/account/orders">MyOrders</NavLink>
-					</>
-				)
-			}
-			{ user.role === 'admin' && <NavLink to="/admin/">Admin</NavLink> }
-
-			{ status === 'not-auth' && <NavLink to="/login">Login</NavLink> }
-			{ status === 'auth' && <button onClick={ handleLogout }>Logout</button> }
+		<nav className="Navbar">
+			<div>
+				<button 
+					className="Navbar__sidebar-button"
+					onClick={ () => dispatch(onToogleSidebar()) }
+				>
+					<MdMenu />
+				</button>
+				<NavLink to="/">Home</NavLink>
+			</div>
+			<div className="Navbar__search">
+				<input className="Navbar__search-input" placeholder="Search something"/>
+			</div>
+			<div>
+				{ status === 'not-auth' && <NavLink to="/login">Login</NavLink> }
+				{ status === 'auth' && <button onClick={ handleLogout }>Logout</button> }
+			</div>		
 		</nav>
 	);
 };

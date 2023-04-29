@@ -5,9 +5,10 @@ export const queryParams = ( params ) => {
 
    const propsParams = params.slice(1).split('&');
 
-   propsParams.map( property => {
+   propsParams.forEach( property => {
       const object = property.split('=');
-      queryObject[object[0]] = object[1];
+
+      queryObject[ object[0] ] = object[1];
    });
 
    return queryObject;
