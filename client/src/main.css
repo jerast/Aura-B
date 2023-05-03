@@ -7,30 +7,82 @@
    #root {
       @apply relative min-h-screen flex flex-col;
    }
-   * {
-      @apply ease-in-out duration-300;
+
+   .fluid {
+      @apply ease-in-out duration-200;
    }
-   .main {
-      @apply relative grow
+
+   .NotifyBar {
+      @apply bg-gray-700 h-9 2xl:h-10 hidden md:flex justify-center items-center text-[13px] 2xl:text-sm text-white
+   }
+   .NotifyBar .primary {
+      @apply font-bold
+   }
+   .NotifyBar .link {
+      @apply underline mx-2
    }
 
    .Navbar {
-      @apply h-16 flex items-center gap-5 border-b;
+      @apply h-28 2xl:h-32 mx-12 lg:mx-36 2xl:mx-64 flex items-center gap-8 xl:gap-20;
    }
-   .Navbar__search {
-      @apply flex-grow;
+   .Navbar__logo {
+      @apply flex-grow md:flex-grow-0 flex justify-center
    }
-   .Navbar__search-input {
-      @apply w-full;
+   .Navbar__logo img {
+      @apply h-7 md:h-8 2xl:h-9
+   }
+   .Navbar__sidebar-button {
+      @apply xl:hidden text-2xl text-gray-500 hover:text-gray-800
+   }
+   .Navbar__nav {
+      @apply flex-grow hidden xl:flex justify-center lg:gap-8 2xl:gap-12 text-gray-800;
+   }
+   .Navbar__controls {
+      @apply flex gap-1 lg:gap-4 flex-grow-0 md:flex-grow xl:flex-grow-0 justify-end
+   }
+   .Navbar__controls-search {
+      @apply hidden md:flex bg-gray-100 px-6 rounded-full mr-2 2xl:mr-12 max-w-[256px] 2xl:w-80
+   }
+   .Navbar__controls-search input {
+      @apply bg-transparent outline-none text-gray-700 w-full
+   }
+   .Navbar__controls-search button {
+      @apply text-gray-400 text-xl
+   }
+   .Navbar__controls > button {
+      @apply h-11 w-11 2xl:h-12 2xl:w-12 flex justify-center items-center rounded-full hover:bg-gray-100 text-gray-700
+   }
+   .Navbar__controls-cart {
+      @apply text-2xl
+   }
+   .Navbar__controls-login {
+      @apply text-[20px] overflow-hidden 
+   }
+   .Navbar__controls-login span {
+      @apply bg-indigo-700 hover:bg-indigo-500 text-white w-full h-full flex justify-center items-center
    }
    
    .Sidebar {
-      @apply absolute w-full h-full top-0 z-10 
+      @apply absolute w-full h-full top-0 z-10 overflow-hidden
    }
    .Sidebar__backdrop {
       @apply absolute -z-10 bg-black bg-opacity-40 w-full h-full
    }
    .Sidebar__content {
-      @apply absolute bg-white h-full w-80 
+      @apply absolute bg-white left-0 h-full w-full sm:w-96 2xl:w-[30rem]
+   }
+
+   .ShoppingCart {
+      @apply absolute w-full h-full top-0 z-10 overflow-hidden
+   }
+   .ShoppingCart__backdrop {
+      @apply absolute -z-10 bg-black bg-opacity-40 w-full h-full
+   }
+   .ShoppingCart__content {
+      @apply absolute bg-white right-0 h-full w-full sm:w-96 2xl:w-[30rem]
+   }
+
+   .main {
+      @apply mx-12 lg:mx-36 2xl:mx-64;
    }
 }

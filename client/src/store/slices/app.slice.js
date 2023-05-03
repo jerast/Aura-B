@@ -4,35 +4,35 @@ export const appSlice = createSlice({
 	name: 'app',
 	initialState: {
 		sidebarIsOpen: false,
-      modalIsOpen: false,
+      shoppingCartIsOpen: false,
 	},
 	reducers: {
 		onOpenSidebar: (state) => {
 			state.sidebarIsOpen = true;
 		},
-		onOpenModal: (state) => {
+		onOpenShoppingCart: (state) => {
 			state.sidebarIsOpen = true;
 		},
 		onCloseSidebar: (state) => {
 			state.sidebarIsOpen = false;
 		},
-		onCloseModal: (state) => {
-			state.modalIsOpen = false;
+		onCloseShoppingCart: (state) => {
+			state.shoppingCartIsOpen = false;
 		},
 		onToogleSidebar: (state) => {
 			state.sidebarIsOpen = !state.sidebarIsOpen;
 		},
-		onToogleModal: (state) => {
-			state.modalIsOpen = !state.modalIsOpen;
+		onToogleShoppingCart: (state) => {
+			state.shoppingCartIsOpen = !state.shoppingCartIsOpen;
 		},
 	},
 });
 
 export const { 
 	onOpenSidebar,
-	onOpenModal,
+	onOpenShoppingCart,
 	onCloseSidebar,
-	onCloseModal,
+	onCloseShoppingCart,
 	onToogleSidebar,
-	onToogleModal,
+	onToogleShoppingCart,
 } = appSlice.actions;

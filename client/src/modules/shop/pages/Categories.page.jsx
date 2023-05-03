@@ -18,7 +18,7 @@ export const CategoriesPage = () => {
 			{
 				categories.map( category => (
 					<div key={ category.id }>
-						<Link to={`/products?filter=category&value=${ category.name }`}>{ category.name }</Link>
+						<Link to={`/products?category=${ category.name }`}>{ category.name }</Link>
 					</div>
 				))
 			}
