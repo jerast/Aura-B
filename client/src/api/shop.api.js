@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { getEnv } from '@/helpers';
+// import { getEnv } from '@/helpers';
 
-const { VITE_API_URL } = getEnv();
+// const { VITE_API_URL } = getEnv();
 
 export const shopApi = axios.create({
-	baseURL: VITE_API_URL,
+	baseURL: import.meta.env.VITE_API_URL,
 });

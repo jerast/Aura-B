@@ -1,7 +1,7 @@
-export const getEnv = () => {
-	import.meta.env;
+// export const getEnv = () => {
+// 	import.meta.env;
 
-	return {
-		...import.meta.env,
-	};
-};
+// 	return {
+// 		...import.meta.env,
+// 	};
+// };

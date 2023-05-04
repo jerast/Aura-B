@@ -5,15 +5,19 @@ import { useSelector } from 'react-redux';
 export const App = () => {
 
    const { status } = useSelector( state => state.session );
-   // const { sidebarIsOpen } = useSelector( state => state.app );
 
    return (
       <>
-         { status !== 'auth' && <NotifyBar /> }
-         <Navbar />
+         <header className="header">
+            <NotifyBar />
+            <Navbar />
+         </header>
          <main className="main">
             <AppRoutes />
          </main>
+         <footer className="footer">
+            footer
+         </footer>
          <Sidebar />
          <ShoppingCart />
       </>
