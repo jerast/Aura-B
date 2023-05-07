@@ -4,8 +4,9 @@ import { currencyFormatter, dateFormatter } from '@/helpers';
 
 export const OrdersPage = () => {
 	const { orders } = useSelector( state => state.session );
+	const { isLoading } = useSelector( state => state.shop );
 	
-	if ( !orders.length ) return (
+	if ( isLoading ) return (
 		<>
 			<h1>Orders</h1>
 			<h4>Loading...</h4>

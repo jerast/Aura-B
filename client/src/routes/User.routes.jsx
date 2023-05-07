@@ -3,8 +3,7 @@ import { OrderPage, OrdersPage } from '@/modules/session';
 
 export const UserRoutes = () => {
 
-	if (!localStorage.getItem('user')) 
-		return <Navigate to="/" />;
+	if (!localStorage.getItem('user')) return <Navigate to="/" />;
 
 	return (
 		<Routes>

@@ -6,8 +6,9 @@ import { currencyFormatter, dateFormatter } from '@/helpers';
 
 export const OrderPage = () => {
 	const { id } = useParams();
-	const { orders, activeOrder } = useSelector( state => state.session );
-	const { products } = useSelector( state => state.shop );
+	const { activeOrder } = useSelector( state => state.app );
+	const { orders } = useSelector( state => state.session );
+	const { isLoading, products } = useSelector( state => state.shop );
 	const dispatch = useDispatch();
 	
 	useEffect(() => { 

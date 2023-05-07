@@ -5,34 +5,44 @@ export const appSlice = createSlice({
 	initialState: {
 		sidebarIsOpen: false,
       shoppingCartIsOpen: false,
+		activeOrder: undefined,
+		activeProduct: undefined,
+		order: {
+			
+		},
+		shoppingCart: [],
 	},
 	reducers: {
-		onOpenSidebar: (state) => {
-			state.sidebarIsOpen = true;
-		},
-		onOpenShoppingCart: (state) => {
-			state.sidebarIsOpen = true;
-		},
-		onCloseSidebar: (state) => {
-			state.sidebarIsOpen = false;
-		},
-		onCloseShoppingCart: (state) => {
-			state.shoppingCartIsOpen = false;
-		},
 		onToogleSidebar: (state) => {
 			state.sidebarIsOpen = !state.sidebarIsOpen;
 		},
 		onToogleShoppingCart: (state) => {
 			state.shoppingCartIsOpen = !state.shoppingCartIsOpen;
 		},
+		setActiveOrder: (state, { payload }) => {
+			state.activeOrder = payload;
+		},
+		clearActiveOrder: (state) => {
+			state.activeOrder = undefined;
+		},
+		setActiveProduct: (state, { payload }) => {
+			state.activeProduct = payload;
+		},
+		clearActiveProduct: (state) => {
+			state.activeProduct = undefined;
+		},
+		updateShoppingCart: (state, { payload }) => {
+			state.shoppingCart = payload;
+		}
 	},
 });
 
-export const { 
-	onOpenSidebar,
-	onOpenShoppingCart,
-	onCloseSidebar,
-	onCloseShoppingCart,
+export const {
 	onToogleSidebar,
 	onToogleShoppingCart,
+	setActiveOrder, 
+	clearActiveOrder, 
+	setActiveProduct, 
+	clearActiveProduct, 
+	updateShoppingCart, 
 } = appSlice.actions;

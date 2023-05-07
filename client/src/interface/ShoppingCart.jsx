@@ -1,6 +1,7 @@
-import { onToogleShoppingCart } from "@/store";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { onToogleShoppingCart } from "@/store";
+import { MdKeyboardBackspace } from "react-icons/md";
 
 export const ShoppingCart = () => {
 
@@ -14,23 +15,22 @@ export const ShoppingCart = () => {
 			: setTimeout(() => toogleShow(false), 250);
 	}, [shoppingCartIsOpen]);
 
-	const handleToogleBackdrop = () => 
-		shoppingCartIsOpen 
-			? 'ShoppingCart__backdrop animate-in fade-in duration-300' 
-			: 'ShoppingCart__backdrop animate-out fade-out duration-300';
-
 	const handleCloseShoppingCart = () => 
-		dispatch( onToogleShoppingCart() );
+		dispatch(onToogleShoppingCart());
 
    return (
       isShow && (
 			<div className="ShoppingCart">
 				<div 
-					className={ handleToogleBackdrop() }
+					className={`ShoppingCart__backdrop ${ shoppingCartIsOpen ? 'animate-in fade-in duration-300' : 'animate-out fade-out duration-300' }`}
 					onClick={ handleCloseShoppingCart }
 				/>
 				<div className={`ShoppingCart__content ${ shoppingCartIsOpen ? 'animate-in slide-in-from-right duration-300' : 'animate-out slide-out-to-right duration-300' }`}>					
-
+					<div className="ShoppingCart__header">
+						<button className="ShoppingCart__close-button fluid" onClick={ handleCloseShoppingCart }>
+							<MdKeyboardBackspace />
+						</button>
+					</div>
 				</div>
 			</div>
 		)

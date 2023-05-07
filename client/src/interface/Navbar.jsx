@@ -8,7 +8,8 @@ import { useState } from 'react';
 // import Logo from '@/assets/logo.svg';
 
 export const Navbar = () => {
-	const { status, user } = useSelector((state) => state.session);
+	const { status, user } = useSelector( state => state.session );
+	const { shoppingCart } = useSelector( state => state.app );
 	const [ searchField, onChangeSearchField ] = useState('');
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -26,7 +27,7 @@ export const Navbar = () => {
 		event.preventDefault();
 
 		if (!searchField) return;
-		navigate(`/products?name=${ searchField }`, { replace: true });
+		navigate(`/products?name=${ searchField }`);
 	};
 
 	return (
@@ -39,7 +40,6 @@ export const Navbar = () => {
 			</button>
 			<div className="Navbar__logo">
 				<NavLink to="/">
-					{/* <img src={ Logo } alt="Home" /> */}
 					<svg viewBox="0 0 4074 1351" xmlns="http://www.w3.org/2000/svg">
 						<path d="M3717 400H3585L3228 1334H3371L3651 601.5L3931 1334H4074L3717 400Z" fill="inherit"/>
 						<path d="M1492 1351C1725.62 1351 1915 1173.03 1915 953.5V399H1781V940.5C1781 1093.76 1651.61 1218 1492 1218C1332.39 1218 1203 1093.76 1203 940.5V400H1069V953.5C1069 1173.03 1258.38 1351 1492 1351Z" fill="inherit"/>
@@ -63,8 +63,10 @@ export const Navbar = () => {
 						type="text" 
 						placeholder="Search Product" 
 						name="search"
+						autoComplete="off"
 						value={ searchField }
 						onChange={ ({ target }) => onChangeSearchField( target.value ) }
+						onBlur={ () => onChangeSearchField('') }
 					/>
 					<button>
 						<RiSearchLine />
@@ -72,9 +74,17 @@ export const Navbar = () => {
 				</form>
 				<button className="Navbar__controls-cart fluid" onClick={ () => dispatch(onToogleShoppingCart()) }>
 					<MdOutlineShoppingCart />
+					{ 
+						!!shoppingCart.length && (
+							<span className="Navbar__notify">
+								<span className="Navbar__nofity-ping animate-ping"></span>
+								<span className="Navbar__notify-icon"></span>
+							</span>
+						)
+					}
 				</button>
 				<button className="Navbar__controls-login fluid" onClick={ (status === 'auth') ? handleLogout : handleLogin }>
-					{ status === 'auth' ? <span className="fluid">{ user.name[0] }</span>  : <FaRegUser />  }
+					{ status === 'auth' ? <span className="fluid">{ user.name[0] }</span> : <FaRegUser />  }
 				</button>
 			</div>		
 		</nav>

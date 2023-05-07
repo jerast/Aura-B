@@ -1,5 +1,5 @@
 import { shopApi } from '@/api';
-import { onLoadOrders, onChecking, onLogin, onLogout, setActiveOrder, clearActiveOrder } from '@/store';
+import { onLoadOrders, onChecking, onLogin, onLogout, clearActiveOrder } from '@/store';
 import { user, orders } from '@/data/testingData'; // Offline Data Testing
 
 export const startVerifyingSession = () =>
@@ -25,6 +25,7 @@ export const startLogout = () =>
 	async (dispatch, getState) => {
 		localStorage.removeItem('user');
 		dispatch( onLogout() );
+		dispatch( clearActiveOrder() );
 	};
 
 export const startLoadingOrders = () =>
@@ -41,30 +42,7 @@ export const startLoadingOrders = () =>
 			const { data } = await shopApi.get('/orders', { headers: filter });
 			dispatch( onLoadOrders(data.orders) );
 
-			// Offline Mode
-			// const filteredOrders = orders.filter( order => order.user === user.id );
-			// dispatch( onLoadOrders( filteredOrders ) );
-
 		} catch (error) {
 			console.error( error );
-		}
-	};
-
-export const startLoadingSelectedOrder = ( order_id ) =>
-	async (dispatch, getState) => {
-		const { orders } = getState().session;
-
-		const findOrder = orders.some( order => order.id === order_id );
-		if ( !findOrder ) return;
-
-		try {
-			const { data } = await shopApi.get(`/orders/${ order_id }`);
-			dispatch( setActiveOrder(data.order) );
-
-			// Offline Mode
-			// const findedOrder = orders.find( order => order.id === order_id );
-			// dispatch( setActiveOrder( findedOrder ) );
-		} catch (error) {
-			console.error( `Something's wrong on Request` );
 		}
 	};
