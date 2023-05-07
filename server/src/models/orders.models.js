@@ -22,6 +22,29 @@ const orderSquema = Schema({
 		type: String,
 		required: true,
 	},
+	list: [
+		{
+			product: {
+				type: Schema.Types.ObjectId,
+				ref: 'Product',
+				required: true,
+			},
+			prices: {
+				retail: {
+					type: Number,
+					required: true,
+				},
+				wholesale: {
+					type: Number,
+					required: true,
+				},
+			},
+			count: {
+				type: Number,
+				required: true,
+			},
+		}
+	],
 });
 
 orderSquema.method('toJSON', function () {
@@ -29,4 +52,4 @@ orderSquema.method('toJSON', function () {
 	return { id: _id, ...object };
 });
 
-export default model('Order', orderSquema);
+export const Order = model('Order', orderSquema); 

@@ -1,21 +1,14 @@
+import { Order } from '../models/orders.models.js';
 import { getError } from '../middlewares/getError.js';
-import Order from '../models/orders.models.js';
-import OrderProduct from '../models/orderProducts.models.js';
 import Product from '../models/products.models.js';
 
 export const getOrders = async (request, response) => {
 	try {
 		const { field, value } = request.headers;
 
-		let orders;
-
-		if (!field || !value) {
-			orders = await Order.find();
-		}
-
-		if (field && value) {
-			orders = await Order.find({ [field]: value });
-		}
+		let orders = (field && value) 
+			? await Order.find({ [field]: value })
+			: await Order.find();
 
 		return response.json({
 			ok: true,
@@ -28,19 +21,21 @@ export const getOrders = async (request, response) => {
 
 export const createOrder = async (request, response) => {
 	try {
-		const order = new Order({ ...request.body });
-		await order.save();
+		console.log( request.body );
+
+		// const order = new Order({ ...request.body });
+		// await order.save();
 
 		return response.json({
 			ok: true,
-			order,
+			// order,
 		});
 	} catch (error) {
 		getError(response, error);
 	}
 };
 
-export const getOrderProducts = async (request, response) => {
+/* export const getOrderProducts = async (request, response) => {
 	try {
 		const { id } = request.params;
 
@@ -65,9 +60,9 @@ export const getOrderProducts = async (request, response) => {
 	} catch (error) {
 		getError(response, error);
 	}
-};
+}; */
 
-export const createOrderProduct = async (request, response) => {
+/* export const createOrderProduct = async (request, response) => {
 	try {
 		const { id } = request.params;
 		const { product_id, count } = request.body;
@@ -93,4 +88,4 @@ export const createOrderProduct = async (request, response) => {
 	} catch (error) {
 		getError(response, error);
 	}
-};
+}; */

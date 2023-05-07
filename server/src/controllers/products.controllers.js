@@ -3,7 +3,8 @@ import Product from '../models/products.models.js';
 
 export const getProducts = async (request, response) => {
 	try {
-		const products = await Product.find();
+		const products = 
+			await Product.find().populate({ path: 'category', select: 'name', transform: (doc, id) => doc.name });
 
 		return response.json({
 			ok: true,
