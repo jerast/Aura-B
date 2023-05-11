@@ -1,39 +1,34 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearActiveProduct, startAddingToShoppingCart, startLoadingSelectedProduct } from '@/store';
+import { clearActiveProduct, startLoadingSelectedProduct } from '@/store';
 import { currencyFormatter } from '@/helpers';
+import { useShoppingCart } from '@/hooks';
 
 export const ProductPage = () => {
 	const { id } = useParams();
-	const { activeProduct } = useSelector( state => state.app );
-	const { products } = useSelector( state => state.shop );
-	const { user } = useSelector( state => state.session );
-	const [ count, onChangeCount ] = useState(1);
+	const { isLoading } = useSelector( state => state.shop );
+	const { activeProduct, shoppingCart } = useSelector( state => state.app );
+	const { onAddToShoppingCart, onReduceToShoppingCart } = useShoppingCart();
 	const dispatch = useDispatch();
 	
-	useEffect(() => { 
-		dispatch( startLoadingSelectedProduct(id) );
-	}, [products]);
+	useEffect(() => { (!isLoading) && dispatch( startLoadingSelectedProduct(id) ) }, 
+	[id, isLoading]);
 	
-	useEffect(() => { 
-		return () => dispatch( clearActiveProduct() ); 
-	}, []);
+	useEffect(() => () => dispatch( clearActiveProduct() ), []);
 
-	const handleAddToShoppingCart = () => {
+	const handleFindInShoppingCart = shoppingCart.some( item => item.product === id );
 
-		const { id, prices } = activeProduct;
-		const product = {
-			product: id,
-			prices,
-			count
-		};
+	const handleAddToShoppingCart = () => onAddToShoppingCart({
+		id: activeProduct.id,
+		prices: activeProduct.prices,
+	});
 
-		dispatch( startAddingToShoppingCart(product) );
-	};
-
-  // TODO: Fix bug 'Product not found'
-
+	const handleReduceToShoppingCart = () => onReduceToShoppingCart({
+		id: activeProduct.id,
+		prices: activeProduct.prices,
+	});
+		
 	if ( !activeProduct ) return (
 		<>
 			<h1>Product</h1>
@@ -48,19 +43,16 @@ export const ProductPage = () => {
 				<h4>{ activeProduct.reference }</h4>
 				<h4>{ activeProduct.description }</h4>
 				<ul>
-					<li>{ currencyFormatter(activeProduct.prices.retail) }</li>
-					<li>{ currencyFormatter(activeProduct.prices.wholesale) }</li>
+					<li>{ currencyFormatter( activeProduct.prices.retail ) }</li>
+					<li>{ currencyFormatter( activeProduct.prices.wholesale ) }</li>
 				</ul>
 			</div>
-			<div>
-				<input 
-					type="number" 
-					// max={ activeProduct.stock } 
-					// readOnly 
-					value={ count }
-					onChange={ onChangeCount }
-				/>
-				<button onClick={ handleAddToShoppingCart }>Add</button>
+			<div className='flex flex-col w-fit'>
+				<button onClick={ handleAddToShoppingCart }>Add +1</button>
+				{
+					handleFindInShoppingCart && 
+						<button onClick={ handleReduceToShoppingCart }>Remove -1</button>
+				}
 			</div>
 		</>
 	);

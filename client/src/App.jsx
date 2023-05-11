@@ -3,7 +3,7 @@ import { AppRoutes } from '@/routes';
 import { Footer, Navbar, NotifyBar, ShoppingCart, Sidebar } from '@/interface';
 
 export const App = () => {
-   useLoader();
+   const { pathname } = useLoader();
 
    return (
       <>
@@ -11,7 +11,7 @@ export const App = () => {
             <NotifyBar />
             <Navbar />
          </header>
-         <main className="Main">
+         <main className={`Main${ (pathname !== '/') ? ' Main--content' : ''}`}>
             <AppRoutes />
          </main>
          <footer className="Footer">
@@ -20,5 +20,5 @@ export const App = () => {
          <Sidebar />
          <ShoppingCart />
       </>
-   )
-}
+   );
+};

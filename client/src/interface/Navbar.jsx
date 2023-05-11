@@ -1,16 +1,13 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { MdMenu, MdOutlineShoppingCart } from 'react-icons/md';
-import { RiSearchLine } from 'react-icons/ri';
-import { FaRegUser } from 'react-icons/fa';
 import { onToogleShoppingCart, onToogleSidebar, startLogout } from '@/store';
-import { useState } from 'react';
-// import Logo from '@/assets/logo.svg';
+import { NavbarSearch } from '@/interface';
+import { MdMenu, MdOutlineShoppingCart } from 'react-icons/md';
+import { FaRegUser } from 'react-icons/fa';
 
 export const Navbar = () => {
 	const { status, user } = useSelector( state => state.session );
 	const { shoppingCart } = useSelector( state => state.app );
-	const [ searchField, onChangeSearchField ] = useState('');
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
@@ -21,13 +18,6 @@ export const Navbar = () => {
 
 	const handleLogin = () => {
 		navigate('/login', { replace: true });
-	};
-
-	const searchProduct = (event) => {
-		event.preventDefault();
-
-		if (!searchField) return;
-		navigate(`/products?name=${ searchField }`);
 	};
 
 	return (
@@ -52,30 +42,14 @@ export const Navbar = () => {
 			<div className="Navbar__nav">
 				<NavLink to="/categories">Categories</NavLink>
 				<NavLink to="/products">Products</NavLink>
-				<NavLink to="/contact">Contact Us</NavLink>
+				<NavLink to="/contact">Contact</NavLink>
 			</div>
 			<div className="Navbar__controls">
-				<form 
-					className="Navbar__controls-search" 
-					onSubmit={ searchProduct }
-				>
-					<input 
-						type="text" 
-						placeholder="Search Product" 
-						name="search"
-						autoComplete="off"
-						value={ searchField }
-						onChange={ ({ target }) => onChangeSearchField( target.value ) }
-						onBlur={ () => onChangeSearchField('') }
-					/>
-					<button>
-						<RiSearchLine />
-					</button>
-				</form>
+				<NavbarSearch />
 				<button className="Navbar__controls-cart fluid" onClick={ () => dispatch(onToogleShoppingCart()) }>
 					<MdOutlineShoppingCart />
 					{ 
-						!!shoppingCart.length && (
+						(!!shoppingCart.length) && (
 							<span className="Navbar__notify">
 								<span className="Navbar__nofity-ping animate-ping"></span>
 								<span className="Navbar__notify-icon"></span>

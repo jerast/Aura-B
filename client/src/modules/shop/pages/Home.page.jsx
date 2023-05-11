@@ -8,7 +8,7 @@ export const HomePage = () => {
 	return (
 		<>
 			<figure className="Banner">
-				<img className="Banner__image" src="/assets/banner-1.jpg"/>
+				<img className="Banner__image" src="/images/banner-1.jpg"/>
 				<figcaption className="Banner__caption">
 					<h1>Level up your beauty with our products collection</h1>
 					<button onClick={() => navigate('/products')}>Shop now</button>
@@ -27,7 +27,7 @@ export const HomePage = () => {
 							>
 								<img 
 									className="Category__image fluid"
-									src={`/assets/${ (category.name).toLowerCase() }.jpg`} 
+									src={`/images/${ (category.name).toLowerCase() }.jpg`} 
 									alt={ category.name } 
 								/>
 								<span className="Category__caption">{ category.name }</span>
@@ -45,7 +45,7 @@ export const HomePage = () => {
 							<Link 
 								key={ product.id }
 								className="Product fluid" 
-								// to={`/products?category=${ product.name }`} 
+								to={`/products/${ product.id }`} 
 							>
 								<img 
 									className="Product__image fluid"

@@ -12,7 +12,7 @@ const productSquema = Schema({
 	},
 	bar_code: {
 		type: Number,
-		unique: true,
+		// unique: true,
 	},
 	description: {
 		type: String,

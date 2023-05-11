@@ -35,7 +35,7 @@ export const ProductsPage = () => {
 		<>
 			<h1>Products</h1>
 			{
-				handleFilterProducts().map( product => (
+				(!!products.length) && handleFilterProducts().map( product => (
 					<p key={ product.id }>
 						<Link to={`/products/${ product.id }`}>{ product.name }</Link>
 						<li>{ product.category }</li>

@@ -8,7 +8,11 @@ export const appSlice = createSlice({
 		activeOrder: undefined,
 		activeProduct: undefined,
 		order: {
-			
+			total_products: 0,
+			total_prices: {
+				retail: 0,
+				wholesale: 0,
+			},
 		},
 		shoppingCart: [],
 	},
@@ -31,9 +35,24 @@ export const appSlice = createSlice({
 		clearActiveProduct: (state) => {
 			state.activeProduct = undefined;
 		},
-		updateShoppingCart: (state, { payload }) => {
+		onSetOrder: (state, { payload }) => {
+			state.order = payload;
+		},
+		onSetShoppingCart: (state, { payload }) => {
 			state.shoppingCart = payload;
-		}
+		},
+		onAddProductShoppingCart: (state, { payload }) => {
+			state.shoppingCart.push( payload );
+		},
+		onRemoveProductShoppingCart: (state, { payload }) => {
+			state.shoppingCart = state.shoppingCart.filter( (item, index) => index !== payload );
+		},
+		onPlusProductShoppingCart: (state, { payload }) => {
+			state.shoppingCart[ payload.index ].count += payload.count;
+		},
+		onMinusProductShoppingCart: (state, { payload }) => {
+			state.shoppingCart[ payload.index ].count -= payload.count;
+		},
 	},
 });
 
@@ -44,5 +63,10 @@ export const {
 	clearActiveOrder, 
 	setActiveProduct, 
 	clearActiveProduct, 
-	updateShoppingCart, 
+	onSetOrder,
+	onSetShoppingCart,
+	onAddProductShoppingCart, 
+	onRemoveProductShoppingCart, 
+	onPlusProductShoppingCart, 
+	onMinusProductShoppingCart,
 } = appSlice.actions;

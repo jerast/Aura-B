@@ -12,8 +12,8 @@ export const OrderPage = () => {
 	const dispatch = useDispatch();
 	
 	useEffect(() => { 
-		dispatch(startLoadingSelectedOrder(id));
-	}, [orders]);
+		(orders.length > 0) && dispatch(startLoadingSelectedOrder(id));
+	}, [id]);
 	
 	useEffect(() => { 
 		return () => dispatch(clearActiveOrder()); 

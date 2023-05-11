@@ -10,7 +10,7 @@ export const connectDB = async () => {
 	} catch (error) {
 		console.log({
 			info: `Something's wrong with the database connection`,
-			message: error.message,
+			// message: error.message,
 		});
 	}
 };

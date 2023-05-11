@@ -44,7 +44,7 @@ export const products = [
 		category: '643f034567f127ee7bad1fbe',
 		image: 'https://static.wixstatic.com/media/cd4fc5_64cf10cd0fb5401488bbba99bfa94594~mv2.jpg',
 		state: true,
-		stock: 16,
+		stock: 100,
 	},
 	{
 		id: '643f114867f127ee7bad1fd7',
@@ -59,7 +59,7 @@ export const products = [
 		category: '643f034567f127ee7bad1fbe',
 		image: 'https://static.wixstatic.com/media/cd4fc5_64cf10cd0fb5401488bbba99bfa94594~mv2.jpg',
 		state: true,
-		stock: 18,
+		stock: 100,
 	},
 	{
 		id: '643f115667f127ee7bad1fd9',
@@ -75,7 +75,7 @@ export const products = [
 		category: '643f034567f127ee7bad1fbe',
 		image: 'https://static.wixstatic.com/media/cd4fc5_e24d940ebb314048b81c020dee208f29~mv2.jpg',
 		state: true,
-		stock: 20,
+		stock: 100,
 	},
 	{
 		id: '643f116167f127ee7bad1fdb',
@@ -91,7 +91,7 @@ export const products = [
 		category: '643f034567f127ee7bad1fbe',
 		image: 'https://static.wixstatic.com/media/cd4fc5_7036035afd594dceb6fba9f5447d4ac6~mv2.jpeg',
 		state: true,
-		stock: 17,
+		stock: 100,
 	},
 	{
 		id: '643f116967f127ee7bad1fdd',
@@ -107,7 +107,7 @@ export const products = [
 		category: '643f035e67f127ee7bad1fc0',
 		image: 'https://static.wixstatic.com/media/27b655_d34b95db265c472099826083d9254303~mv2.jpg',
 		state: true,
-		stock: 20,
+		stock: 100,
 	},
 	{
 		id: '643f116f67f127ee7bad1fdf',
@@ -122,7 +122,7 @@ export const products = [
 		category: '643f035e67f127ee7bad1fc0',
 		image: 'https://static.wixstatic.com/media/cd4fc5_8bdd804e032240108c918f605d8ede5b~mv2.jpg',
 		state: true,
-		stock: 20,
+		stock: 100,
 	},
 	{
 		id: '643f117767f127ee7bad1fe1',
@@ -137,7 +137,7 @@ export const products = [
 		category: '643f035e67f127ee7bad1fc0',
 		image: 'https://static.wixstatic.com/media/cd4fc5_ffdec78f7ec04f8eae657be29eb56a50~mv2.jpg',
 		state: true,
-		stock: 20,
+		stock: 100,
 	},
 	{
 		id: '643f118767f127ee7bad1fe5',
@@ -153,7 +153,7 @@ export const products = [
 		category: '643f036567f127ee7bad1fc2',
 		image: 'https://static.wixstatic.com/media/cd4fc5_3a57ecf69caf4fd8bad67cdf814bf0f1~mv2.jpg',
 		state: true,
-		stock: 20,
+		stock: 100,
 	},
 	{
 		id: '643f118e67f127ee7bad1fe7',
@@ -168,7 +168,7 @@ export const products = [
 		category: '643f036567f127ee7bad1fc2',
 		image: 'https://static.wixstatic.com/media/cd4fc5_3085fcd4b096454f81c1be9e4aec83f7~mv2.jpeg',
 		state: true,
-		stock: 20,
+		stock: 100,
 	},
 	{
 		id: '643f119467f127ee7bad1fe9',
@@ -183,7 +183,7 @@ export const products = [
 		category: '643f036567f127ee7bad1fc2',
 		image: 'https://static.wixstatic.com/media/cd4fc5_51ff47269053406c881f5b1c9d08bec7~mv2.jpeg',
 		state: true,
-		stock: 20,
+		stock: 100,
 	},
 	{
 		id: '643f119a67f127ee7bad1feb',
@@ -198,7 +198,7 @@ export const products = [
 		category: '643f036567f127ee7bad1fc2',
 		image: 'https://static.wixstatic.com/media/cd4fc5_9e938d953b364d839cb4d93e733ee6b1~mv2.jpeg',
 		state: true,
-		stock: 20,
+		stock: 100,
 	},
 	{
 		id: '643f11a067f127ee7bad1fed',
@@ -213,7 +213,7 @@ export const products = [
 		category: '643f036967f127ee7bad1fc4',
 		image: 'https://static.wixstatic.com/media/27b655_2b69bc86f0de4f838b26645bb2efca7d~mv2.jpg',
 		state: true,
-		stock: 20,
+		stock: 100,
 	},
 	{
 		id: '643f11a867f127ee7bad1fef',
@@ -228,7 +228,7 @@ export const products = [
 		category: '643f036967f127ee7bad1fc4',
 		image: 'https://static.wixstatic.com/media/27b655_382247ef77114dd78686c916fc1a5510~mv2.jpg',
 		state: true,
-		stock: 20,
+		stock: 100,
 	},
 	{
 		id: '643f11ae67f127ee7bad1ff1',
@@ -243,7 +243,7 @@ export const products = [
 		category: '643f036967f127ee7bad1fc4',
 		image: 'https://static.wixstatic.com/media/27b655_2b13b150ff244e93bbcb8d519f37ff45~mv2.jpg',
 		state: true,
-		stock: 20,
+		stock: 100,
 	},
 	{
 		id: '643f11b367f127ee7bad1ff3',
@@ -258,7 +258,7 @@ export const products = [
 		category: '643f036967f127ee7bad1fc4',
 		image: 'https://static.wixstatic.com/media/27b655_160a38d553b94987a6fde81396ee75a9~mv2.jpg',
 		state: true,
-		stock: 12,
+		stock: 100,
 	},
 ];
 
