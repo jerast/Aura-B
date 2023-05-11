@@ -160,21 +160,96 @@
       @apply absolute -z-10 bg-black bg-opacity-40 w-full h-full
    }
    .ShoppingCart__content {
-      @apply absolute flex flex-col gap-6 bg-white right-0 h-full w-full sm:w-96 2xl:w-[30rem] overflow-y-auto py-12 px-14
+      @apply absolute flex flex-col gap-4 md:gap-6 bg-white right-0 h-full w-full sm:w-96 2xl:w-[30rem] overflow-y-auto py-12 px-8
    }
    .ShoppingCart__header {
-      @apply flex flex justify-end sm:justify-start
+      @apply flex justify-between sm:flex-row-reverse font-bold text-2xl text-gray-700 pb-8
    }
    .ShoppingCart__close-button {
       @apply text-2xl text-gray-500 hover:text-gray-800;
    }
+   .ShoppingCart__confirm {
+      @apply border-y py-5 grid items-center
+   }
+   .ShoppingCart__confirm p {
+      @apply flex items-center justify-center gap-1 text-sm text-center
+   }
+   .ShoppingCart__confirm span {
+      @apply font-bold
+   }
+   .ShoppingCart__confirm.discount p {
+      @apply font-bold text-blue-600 
+   }
+   .ShoppingCart__confirm button {
+      @apply flex items-center justify-between px-7 w-full font-bold text-xl h-20 bg-violet-700 hover:bg-violet-500 text-gray-100 rounded-2xl my-4
+   }
+   .ShoppingCart__confirm.discount button {
+      @apply font-bold
+   }
+   .ShoppingCart__confirm button p {
+      @apply flex flex-col
+   }
+   .ShoppingCart__confirm button p span {
+      @apply text-gray-200 
+   }
+   .ShoppingCart__confirm button p span:last-of-type {
+      @apply text-opacity-60 text-sm line-through
+   }
+   .ShoppingCart__confirm.discount button p span:last-of-type {
+      @apply text-xl text-opacity-100 no-underline
+   }
+   .ShoppingCart__confirm button p span:first-of-type {
+      @apply text-xl text-opacity-100 no-underline
+   }
+   .ShoppingCart__confirm.discount button p span:first-of-type {
+      @apply text-opacity-60 text-sm line-through
+   }
+   .ShoppingCart__link {
+      @apply text-gray-400 hover:text-gray-600 text-center
+   };
+
 
    .ShoppingCartItem {
-      @apply focus:bg-gray-100 hover:bg-gray-100 rounded-md
+      @apply relative focus:bg-gray-100 rounded-md grid grid-cols-[auto_minmax(0,1fr)_auto] grid-rows-[auto_auto] text-sm py-3 text-gray-800 gap-x-6 gap-y-4
    }
    .ShoppingCartItem__image {
-      @apply h-5 w-5 object-center
+      @apply h-20 w-20 object-center object-cover row-start-1 row-end-3 place-self-center rounded-md shadow-sm
    }
+   .ShoppingCartItem__name {
+      @apply text-gray-700 hover:text-gray-400 overflow-hidden text-ellipsis h-fit leading-[16px]
+   }
+   .ShoppingCartItem__remove {
+      @apply absolute text-xl rounded-full bg-gray-100 p-2 text-gray-500 justify-self-end
+   }
+   .ShoppingCartItem__controls {
+      @apply flex border border-gray-100 shadow-sm rounded-full w-fit h-fit self-end text-lg items-center;
+   }
+   .ShoppingCartItem__controls button {
+      @apply h-10 w-10 xl:h-12 xl:w-12 flex justify-center items-center rounded-full active:bg-gray-50 text-xl disabled:text-gray-200;
+   }
+   .ShoppingCartItem__controls span {
+      @apply w-7 text-center;
+   }
+   .ShoppingCartItem__prices {
+      @apply row-start-1 row-end-3 col-start-3 text-end flex flex-col items-end justify-end
+   }
+   .ShoppingCartItem__prices li {
+      @apply flex items-center gap-1 font-bold
+   }
+   .ShoppingCartItem__prices li:first-of-type {
+      @apply text-gray-700 text-[15px] no-underline
+   }
+   .ShoppingCartItem__prices.discount li:first-of-type {
+      @apply text-gray-400 text-[12px] line-through
+   }
+   .ShoppingCartItem__prices li:last-of-type {
+      @apply text-gray-400 text-sm line-through
+   }
+   .ShoppingCartItem__prices.discount li:last-of-type {
+      @apply text-blue-600 text-base no-underline
+   }
+
+   
 
    .Main {
       @apply grid mb-24 lg:mt-6 lg:mb-32 gap-20 flex-grow; /* mx-12 lg:mx-32 2xl:mx-60 */ /* lg:mt-52 */

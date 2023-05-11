@@ -4,9 +4,11 @@ import { Link } from 'react-router-dom';
 import { useShoppingCart } from '@/hooks';
 import { currencyFormatter } from '@/helpers';
 import { onToogleShoppingCart } from '@/store';
-import { MdOutlineDelete } from 'react-icons/md';
+import { MdOutlineAdd, MdOutlineDelete, MdOutlineRemove } from 'react-icons/md';
+import { TbDiscountCheckFilled } from 'react-icons/tb';
 
 export const ShoppingCartItem = ({ item }) => {
+   const { order } = useSelector( state => state.app );
    const { products } = useSelector( state => state.shop );
    const [ countProduct, setCountProduct ] = useState( item.count );
    const { onAddToShoppingCart, onReduceToShoppingCart, onRemoveToShoppingCart } = useShoppingCart();
@@ -41,22 +43,26 @@ export const ShoppingCartItem = ({ item }) => {
    };
 
    return (
-      <div className="ShoppingCartItem fluid" key={ product.id } >
+      <div className="ShoppingCartItem fluid">
          <img className="ShoppingCartItem__image" src={ product.image } alt="image" />
-         <Link className="ShoppingCartItem__name" onClick={ handleBackToProduct } to={`/products/${ product.id }`} >
+         <Link className="ShoppingCartItem__name fluid" onClick={ handleBackToProduct } to={`/products/${ product.id }`} >
             { product.name }
          </Link>
          <button className="ShoppingCartItem__remove" onClick={ handleRemoveToShoppingCart }>
             <MdOutlineDelete />
          </button>
-         <div className="flex">
-            <button onClick={ handleReduceToShoppingCart }>-</button>
-            <p>{ countProduct }</p>
-            <button onClick={ handleAddToShoppingCart }>+</button>
+         <div className="ShoppingCartItem__controls">
+            <button onClick={ handleReduceToShoppingCart } disabled={ countProduct === 1 } >
+               <MdOutlineRemove />
+            </button>
+            <span>{ countProduct }</span>
+            <button onClick={ handleAddToShoppingCart }>
+               <MdOutlineAdd />
+            </button>
          </div>
-         <ul>
-            <li>{ currencyFormatter(product.prices.retail * item.count) }</li>
-            <li>{ currencyFormatter(product.prices.wholesale * item.count) }</li>
+         <ul className={`ShoppingCartItem__prices ${ order.total_products >= 6 ? 'discount' : '' }`}>
+            <li className="fluid">{ currencyFormatter(product.prices.retail * item.count) }</li>
+            <li className="fluid"><TbDiscountCheckFilled />{ currencyFormatter(product.prices.wholesale * item.count) }</li>
          </ul>
       </div>
    );
