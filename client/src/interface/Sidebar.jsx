@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import { onToogleSidebar, startLogout } from "@/store";
 import { MdClose } from "react-icons/md";
+import { Search } from "@/interface";
 
 export const Sidebar = () => {
 
@@ -45,6 +46,7 @@ export const Sidebar = () => {
 							<MdClose />
 						</button>
 					</div>
+					<Search />
 					<ul className="Sidebar__group">
 						<li><NavLink onClick={ handleCloseSidebar } to="/">Home</NavLink></li>
 						<li><NavLink onClick={ handleCloseSidebar } to="/categories">Categories</NavLink></li>
@@ -72,11 +74,6 @@ export const Sidebar = () => {
 						<path d="M489.5 400.5H357.5L0.5 1334.5H143.5L423.5 602L703.5 1334.5H846.5L489.5 400.5Z" fill="inherit"/>
 						<path fillRule="evenodd" clipRule="evenodd" d="M2249 400V1335H2383V1013H2727L2890 1335H3040L2846.41 953.807C2921.95 898.032 2971 808.031 2971 706.5C2971 537.225 2834.67 400 2666.5 400H2249ZM2663.5 879C2759.32 879 2837 801.769 2837 706.5C2837 611.231 2759.32 534 2663.5 534H2383V879H2663.5Z" fill="inherit"/>
 					</svg>
-					{/* <div className="Sidebar__theme">
-						<input type="radio" name="theme" id="theme" value="light" />
-						<input type="radio" name="theme" id="theme" value="system" />
-						<input type="radio" name="theme" id="theme" value="dark" />
-					</div> */}
 				</div>
 			</div>
 		)

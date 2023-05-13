@@ -1,8 +1,5 @@
 import axios from 'axios';
-// import { getEnv } from '@/helpers';
-
-// const { VITE_API_URL } = getEnv();
 
 export const shopApi = axios.create({
-	baseURL: import.meta.env.VITE_API_URL,
+	baseURL: import.meta.env.VITE_API_URL || 'http://192.168.0.1:1000/',
 });

@@ -4,7 +4,6 @@ import { useLocation } from 'react-router-dom';
 import { setLastPath } from '@/helpers';
 import { 
 	onLoadEnds, 
-	onLoadStarts, 
 	startGetShoppingCart, 
 	startLoadingCategories, 
 	startLoadingOrders, 
@@ -27,8 +26,7 @@ export const useLoader = () => {
 	
 	const handleLoadingData = async () => {
 		await dispatch( startVerifyingSession() );
-		dispatch( startGetShoppingCart() );
-		dispatch( onLoadStarts() );
+		await dispatch( startGetShoppingCart() );
 		await dispatch( startLoadingProducts() );
 		await dispatch( startLoadingCategories() );
 		dispatch( onLoadEnds() );

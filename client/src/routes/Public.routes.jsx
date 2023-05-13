@@ -8,6 +8,7 @@ export const PublicRoutes = () => {
 			<Route path="/" element={ <HomePage /> } />
 			<Route path="/categories" element={ <CategoriesPage /> } />
 			<Route path="/products" element={ <ProductsPage /> } />
+			<Route path="/:category" element={ <ProductsPage /> } />
 			<Route path="/products/:id" element={ <ProductPage /> } />
 			<Route path="/login" element={ <LoginPage /> } />
          <Route path="*" element={ <h1>Not Found</h1> } />

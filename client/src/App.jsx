@@ -1,6 +1,6 @@
 import { useLoader } from '@/hooks';
 import { AppRoutes } from '@/routes';
-import { Footer, Navbar, NotifyBar, ShoppingCart, Sidebar } from '@/interface';
+import { Breadcrubs, Footer, Navbar, NotifyBar, ShoppingCart, Sidebar } from '@/interface';
 
 export const App = () => {
    const { pathname } = useLoader();
@@ -12,6 +12,7 @@ export const App = () => {
             <Navbar />
          </header>
          <main className={`Main${ (pathname !== '/') ? ' Main--content' : ''}`}>
+            <Breadcrubs />
             <AppRoutes />
          </main>
          <footer className="Footer">

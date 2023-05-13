@@ -2,21 +2,19 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { RiSearchLine } from 'react-icons/ri';
 
-export const NavbarSearch = () => {
+export const Search = () => {
    const [ searchField, onChangeSearchField ] = useState('');
    const navigate = useNavigate();
 
    const searchProduct = (event) => {
 		event.preventDefault();
-
 		if (!searchField) return;
-
 		navigate(`/products?name=${ searchField }`);
 	};
 
    return (
       <form 
-         className="Navbar__controls-search" 
+         className="Search" 
          onSubmit={ searchProduct }
       >
          <input 

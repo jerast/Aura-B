@@ -1,12 +1,14 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { onToogleShoppingCart, onToogleSidebar, startLogout } from '@/store';
-import { NavbarSearch } from '@/interface';
+import { Search } from '@/interface';
 import { MdMenu, MdOutlineShoppingCart } from 'react-icons/md';
 import { FaRegUser } from 'react-icons/fa';
+import { RiLoader4Line } from 'react-icons/ri';
 
 export const Navbar = () => {
 	const { status, user } = useSelector( state => state.session );
+	const { isLoading } = useSelector( state => state.shop );
 	const { shoppingCart } = useSelector( state => state.app );
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -45,20 +47,40 @@ export const Navbar = () => {
 				<NavLink to="/contact">Contact</NavLink>
 			</div>
 			<div className="Navbar__controls">
-				<NavbarSearch />
-				<button className="Navbar__controls-cart fluid" onClick={ () => dispatch(onToogleShoppingCart()) }>
-					<MdOutlineShoppingCart />
-					{ 
-						(!!shoppingCart.length) && (
-							<span className="Navbar__notify">
-								<span className="Navbar__nofity-ping animate-ping"></span>
-								<span className="Navbar__notify-icon"></span>
-							</span>
-						)
+				<Search />
+				<button 
+					className="Navbar__controls-cart fluid" 
+					onClick={ () => dispatch(onToogleShoppingCart()) } 
+					disabled={ isLoading } 
+				>
+					{ ( isLoading ) 
+						? 	<RiLoader4Line className="animate-spin" />
+						: 	( 
+								<>
+										<MdOutlineShoppingCart />
+										{ 
+											!!shoppingCart.length && (
+												<span className="Navbar__notify">
+													<span className="Navbar__nofity-ping animate-ping"></span>
+													<span className="Navbar__notify-icon"></span>
+												</span>
+											)
+										}
+								</> 
+							)
 					}
 				</button>
-				<button className="Navbar__controls-login fluid" onClick={ (status === 'auth') ? handleLogout : handleLogin }>
-					{ status === 'auth' ? <span className="fluid">{ user.name[0] }</span> : <FaRegUser />  }
+				<button 
+					className="Navbar__controls-login fluid" 
+					onClick={ (status === 'auth') ? handleLogout : handleLogin }
+					disabled={ isLoading }
+				>
+					{ ( isLoading )
+						? 	<RiLoader4Line className="animate-spin text-2xl"/>
+						: 	( status === 'auth' ) 
+							? <span className="fluid">{ user.name[0] }</span> 
+							: <FaRegUser /> 
+					}
 				</button>
 			</div>		
 		</nav>

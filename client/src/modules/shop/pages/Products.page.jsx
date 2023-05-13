@@ -1,27 +1,20 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { currencyFormatter } from '@/helpers';
-import { queryParams } from '@/helpers';
+import { currencyFormatter, filters, queryParams } from '@/helpers';
 
 export const ProductsPage = () => {
 	
-	const { products, isLoading } = useSelector( state => state.shop );
-	const { search } = useLocation();
+	const { products, categories, isLoading } = useSelector( state => state.shop );
+	const { search, pathname } = useLocation();
 
 	const handleFilterProducts = () => {
-		if ( !search ) return products;
+		if ( categories.some( category => category.name.toLowerCase() === pathname.slice(1) ) )
+			return filters( products, { ...queryParams(search), category: pathname.slice(1) } );
 
-		const filterParams = Object.entries( queryParams(search) );
-		let filterProducts = [ ...products ];
-		
-		filterParams.forEach( filter => 
-			filterProducts = filterProducts.filter( product => 
-				product[filter[0]].toLowerCase().includes( filter[1].toLowerCase() ) 
-					&& product 
-			)
-		);
+		if ( search ) 
+			return filters( products, queryParams(search) );
 
-		return filterProducts;
+		return products;
 	};
 
 	if ( isLoading ) return (
