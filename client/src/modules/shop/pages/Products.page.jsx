@@ -1,9 +1,9 @@
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { currencyFormatter, filters, queryParams } from '@/helpers';
+import { filters, queryParams } from '@/helpers';
+import { ProductCard } from '@/modules/shop';
 
 export const ProductsPage = () => {
-	
 	const { products, categories, isLoading } = useSelector( state => state.shop );
 	const { search, pathname } = useLocation();
 
@@ -14,7 +14,7 @@ export const ProductsPage = () => {
 		if ( search ) 
 			return filters( products, queryParams(search) );
 
-		return products;
+		return [...products].sort( (a,b) => a.prices.wholesale > b.prices.wholesale );
 	};
 
 	if ( isLoading ) return (
@@ -25,18 +25,14 @@ export const ProductsPage = () => {
 	);
 
 	return (
-		<>
-			<h1>Products</h1>
+		<section className="Section">
+			<article className="ProductList">
 			{
 				(!!products.length) && handleFilterProducts().map( product => (
-					<p key={ product.id }>
-						<Link to={`/products/${ product.id }`}>{ product.name }</Link>
-						<li>{ product.category }</li>
-						<li>{ currencyFormatter(product.prices.retail) }</li>
-						<li>{ currencyFormatter(product.prices.wholesale) }</li>
-					</p>
+					<ProductCard key={ product.id } product={ product } />
 				))
 			}
-		</>
+			</article>
+		</section>
 	);
 };

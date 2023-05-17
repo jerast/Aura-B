@@ -12,7 +12,7 @@ export const App = () => {
             <Navbar />
          </header>
          <main className={`Main${ (pathname !== '/') ? ' Main--content' : ''}`}>
-            <Breadcrubs />
+            {/* <Breadcrubs path={ pathname } /> */}
             <AppRoutes />
          </main>
          <footer className="Footer">

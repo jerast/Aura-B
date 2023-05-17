@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearActiveProduct, startLoadingSelectedProduct } from '@/store';
-import { currencyFormatter } from '@/helpers';
+import { currencyFormatter, resize } from '@/helpers';
 import { useShoppingCart } from '@/hooks';
+import { clearActiveProduct, onLoadEnds, onLoadStarts, startLoadingSelectedProduct } from '@/store';
+import { MdOutlineAdd, MdOutlineDelete, MdOutlineRemove } from 'react-icons/md';
+import { TbDiscountCheckFilled } from 'react-icons/tb';
 
 export const ProductPage = () => {
 	const { id } = useParams();
@@ -13,11 +15,17 @@ export const ProductPage = () => {
 	const { 
 		productCounter, 
 		onAddToShoppingCart, 
-		onReduceToShoppingCart 
+		onReduceToShoppingCart,
+		onRemoveToShoppingCart 
 	} = useShoppingCart( id );
 	
-	useEffect(() => { (!isLoading) && dispatch( startLoadingSelectedProduct(id) ) }, 
-	[id, isLoading]);
+	useEffect(() => { 
+		if (!isLoading) {
+			dispatch( onLoadStarts() )
+			dispatch( startLoadingSelectedProduct(id) )
+			dispatch( onLoadEnds() )
+		}
+	}, [id, isLoading]);
 	
 	useEffect(() => () => dispatch( clearActiveProduct() ), []);
 		
@@ -29,22 +37,43 @@ export const ProductPage = () => {
 	);
 
 	return (
-		<section className="ProductBanner">
-			<img className="ProductBanner__image" src={ activeProduct.image } alt="" />
-			<div className="ProductBanner__data">
-				<h1>{ activeProduct.name }</h1>
-				<h4>{ activeProduct.reference }</h4>
-				<h4>{ activeProduct.description }</h4>
-				<ul>
-					<li>{ currencyFormatter( activeProduct.prices.retail ) }</li>
-					<li>{ currencyFormatter( activeProduct.prices.wholesale ) }</li>
-				</ul>
-				<div className="ProductBanner__controls">
-					<button onClick={ onAddToShoppingCart }>Add</button>
-					<span>{ productCounter }</span>
-					<button onClick={ onReduceToShoppingCart }>Reduce</button>
+		<>
+			<section className="ProductSection">
+				<img className="ProductSection__image" src={ resize( activeProduct.image, 500 ) } alt="" />
+				<div className="ProductSection__content">
+					<div className="ProductSection__data">
+						<h1 className="ProductSection__name">{ activeProduct.name }</h1>
+						<span className="ProductSection__reference">{ activeProduct.reference }</span>
+					</div>
+					<div className="ProductSection__prices">
+						<span>{ currencyFormatter( activeProduct.prices.retail ) }</span>
+						<span><TbDiscountCheckFilled />{ currencyFormatter( activeProduct.prices.wholesale ) }</span>
+					</div>
+					<span className="ProductSection__description">Description: { activeProduct.description }
+					<br />Left: { activeProduct.stock }</span>
+					<div className="ProductSection__controls">
+						<div>
+							<button onClick={ onReduceToShoppingCart } disabled={ productCounter === 0 } >
+								<MdOutlineRemove />
+							</button>
+							<span>{ productCounter }</span>
+							<button onClick={ onAddToShoppingCart }>
+								<MdOutlineAdd />
+							</button>
+						</div>
+						<div>
+							<button className="fluid" onClick={ onAddToShoppingCart }>Add to cart</button>
+							{ (productCounter > 0) && <button onClick={ onRemoveToShoppingCart }><MdOutlineDelete /></button> }
+						</div>
+					</div>
 				</div>
-			</div>
-		</section>
+			</section>
+			<section className="Section">
+				<h1 className="Section__title">Related Products</h1>
+				<article className="Section__content Section__content--products">
+					
+				</article>
+			</section>
+		</>
 	);
 };

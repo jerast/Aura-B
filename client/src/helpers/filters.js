@@ -1,5 +1,5 @@
-export const filters = ( origin, params ) => {
-   let result = origin;
+export const filters = ( array, params ) => {
+   let result = array;
 
    [...Object.entries( params )].forEach( param => 
       result = result.filter( product => {

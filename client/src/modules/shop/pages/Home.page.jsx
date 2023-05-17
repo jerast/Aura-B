@@ -1,9 +1,32 @@
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import { ProductCard } from '@/modules/shop';
 
 export const HomePage = () => {
 	const { isLoading, categories, products } = useSelector( state => state.shop );
 	const navigate = useNavigate();
+
+	if ( isLoading ) return (
+		<>
+			<figure className="Banner">
+				<figcaption className="Banner__caption loading">
+					<h1 />
+					<h1 />
+					<button />
+				</figcaption>
+			</figure>
+
+			<section className="Section Section--main">
+				<h1 className="Section__title loading" />
+				<article className="Section__content loading">
+					<a><span /></a> 
+					<a><span /></a> 
+					<a><span /></a> 
+					<a><span /></a> 
+				</article>
+			</section>
+		</>
+	);
 
 	return (
 		<>
@@ -15,15 +38,15 @@ export const HomePage = () => {
 				</figcaption>
 			</figure>
 
-			<section className="Section">
-				<h1 className="Section__title">Shop Our Top Categories</h1>
+			<section className="Section Section--main">
+				<h1 className="Section__title">Top Categories</h1>
 				<article className="Section__content Section__content--categories">
 					{
 						categories.map( category => 
 							<Link 
 								key={ category.id }
 								className="Category fluid" 
-								to={`/products?category=${ category.name }`} 
+								to={`/${ category.name.toLowerCase() }`}
 							>
 								<img 
 									className="Category__image fluid"
@@ -37,23 +60,12 @@ export const HomePage = () => {
 				</article>
 			</section>
 
-			<section className="Section">
-				<h1 className="Section__title">Some Of Our Produts</h1>
+			<section className="Section Section--main">
+				<h1 className="Section__title">Featured Produts</h1>
 				<article className="Section__content Section__content--products">
 					{
 						(products.slice(1, 7)).map( product => 
-							<Link 
-								key={ product.id }
-								className="Product fluid" 
-								to={`/products/${ product.id }`} 
-							>
-								<img 
-									className="Product__image fluid"
-									src={ product.image } 
-									alt={ product.name } 
-								/>
-								{/* <span className="Product__caption">{ product.name }</span> */}
-							</Link> 
+							<ProductCard key={ product.id } product={ product } />
 						)
 					}
 				</article>

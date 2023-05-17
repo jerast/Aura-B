@@ -1,10 +1,10 @@
-import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { useShoppingCart } from '@/hooks';
-import { currencyFormatter } from '@/helpers';
 import { onToogleShoppingCart } from '@/store';
-import { MdOutlineAdd, MdOutlineDelete, MdOutlineRemove } from 'react-icons/md';
+import { currencyFormatter, resize } from '@/helpers';
 import { TbDiscountCheckFilled } from 'react-icons/tb';
+import { MdOutlineAdd, MdOutlineDelete, MdOutlineRemove } from 'react-icons/md';
 
 export const ShoppingCartItem = ({ id }) => {
 	const { order } = useSelector( state => state.app );
@@ -24,7 +24,7 @@ export const ShoppingCartItem = ({ id }) => {
 	return (
 		<div className="ShoppingCartItem fluid">
 			<Link className="ShoppingCartItem__image" onClick={ handleBackToProduct } to={`/products/${ product.id }`} >
-				<img  src={ product.image } alt="image" />
+				<img src={ resize( product.image, 100 ) } alt="image" />
 			</Link>
 			<Link className="ShoppingCartItem__name fluid" onClick={ handleBackToProduct } to={`/products/${ product.id }`} >
 				{ product.name }

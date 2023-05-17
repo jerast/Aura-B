@@ -1,5 +1,5 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { OrderPage, OrdersPage } from '@/modules/session';
+import { Checkout, OrderPage, OrdersPage } from '@/modules/session';
 
 export const UserRoutes = () => {
 
@@ -9,6 +9,7 @@ export const UserRoutes = () => {
 		<Routes>
 			<Route path="/" element={ <h1>MyAccount</h1> } />
 			<Route path="/orders" element={ <OrdersPage /> } />
+			<Route path="/orders/checkout" element={ <Checkout /> } />
 			<Route path="/orders/:id" element={ <OrderPage /> } />
 			<Route path="*" element={ <h1>Not Found</h1> } />
 		</Routes>

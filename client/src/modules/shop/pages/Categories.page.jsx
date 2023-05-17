@@ -7,21 +7,39 @@ export const CategoriesPage = () => {
 
 	if ( isLoading ) return (
 		<>
-			<h1>Categories</h1>
-			<h3>Loading...</h3>
+			<section className="Section">
+				<h1 className="Section__title " >Categories</h1>
+				<article className="Section__content loading">
+					<a><span /></a> 
+					<a><span /></a> 
+					<a><span /></a> 
+					<a><span /></a> 
+				</article>
+			</section>
 		</>
 	);
 
 	return (
-		<>
-			<h1>Categories</h1>
-			{
-				categories.map( category => (
-					<div key={ category.id }>
-						<Link to={`/${ category.name.toLowerCase() }`}>{ category.name }</Link>
-					</div>
-				))
-			}
-		</>
+		<section className="Section">
+			<h1 className="Section__title">Categories</h1>
+			<article className="Section__content Section__content--categories">
+				{
+					categories.map( category => 
+						<Link 
+							key={ category.id }
+							className="Category fluid" 
+							to={`/${ category.name.toLowerCase() }`} 
+						>
+							<img 
+								className="Category__image fluid"
+								src={`/images/${ (category.name).toLowerCase() }.jpg`} 
+								alt={ category.name } 
+							/>
+							<span className="Category__caption">{ category.name }</span>
+						</Link> 
+					)
+				}
+			</article>
+		</section>
 	);
 };
