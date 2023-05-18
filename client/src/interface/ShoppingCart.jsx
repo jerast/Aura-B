@@ -8,9 +8,7 @@ import { TbDiscountCheckFilled } from 'react-icons/tb';
 
 export const ShoppingCart = () => {
 
-	const { shoppingCartIsOpen, shoppingCart, order } = useSelector( state => state.app );
-	const { auth } = useSelector( state => state.session );
-	const { isLoading } = useSelector( state => state.shop );
+	const { isLoading, shoppingCart, order, shoppingCartIsOpen } = useSelector( state => state.app );
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
@@ -52,9 +50,9 @@ export const ShoppingCart = () => {
 						</button>
 						<div>
 							{
-								(order.total_products < 6)
-									? <p><span>{ 6 - order.total_products }</span> product(s) more to <span>get DISCOUNT</span></p>
-									: <p><TbDiscountCheckFilled />GOT THE DISCOUNT!</p>
+								(order.total_products >= 6)
+									? <p><TbDiscountCheckFilled />GOT THE DISCOUNT!</p>
+									: <p><span>{ 6 - order.total_products }</span> product(s) more to <span>get DISCOUNT</span></p>
 							}
 						</div>
 					</div>

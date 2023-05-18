@@ -3,7 +3,8 @@ import { useSelector } from 'react-redux';
 import { NavLink, useLocation } from 'react-router-dom';
 
 export const Breadcrubs = () => {
-   const { products, categories, isLoading } = useSelector( state => state.shop );
+   const { products, categories } = useSelector( state => state.shop );
+   const { isLoading } = useSelector( state => state.app );
    const { pathname } = useLocation();
 
    if ( pathname === '/' ) return ;

@@ -9,3 +9,9 @@ export const getLastOrder =
 
 export const getLastShoppingCart = 
    JSON.parse( localStorage.getItem('shoppingCart') );
+
+export const removeLastOrder = () =>
+   localStorage.removeItem('order');
+
+export const removeLastShoppingCart = () =>
+   localStorage.removeItem('shoppingCart');

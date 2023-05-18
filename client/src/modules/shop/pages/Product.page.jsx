@@ -9,8 +9,7 @@ import { TbDiscountCheckFilled } from 'react-icons/tb';
 
 export const ProductPage = () => {
 	const { id } = useParams();
-	const { isLoading } = useSelector( state => state.shop );
-	const { activeProduct } = useSelector( state => state.app );
+	const { isLoading, activeProduct } = useSelector( state => state.app );
 	const dispatch = useDispatch();
 	const { 
 		productCounter, 
@@ -29,10 +28,17 @@ export const ProductPage = () => {
 	
 	useEffect(() => () => dispatch( clearActiveProduct() ), []);
 		
-	if ( !activeProduct ) return (
+	if ( isLoading ) return (
 		<>
 			<h1>Product</h1>
 			<h4>Loading...</h4>
+		</>
+	);
+	
+	if ( !activeProduct ) return (
+		<>
+			<h1>Product</h1>
+			<h4>Product Not Found</h4>
 		</>
 	);
 
@@ -49,8 +55,8 @@ export const ProductPage = () => {
 						<span>{ currencyFormatter( activeProduct.prices.retail ) }</span>
 						<span><TbDiscountCheckFilled />{ currencyFormatter( activeProduct.prices.wholesale ) }</span>
 					</div>
-					<span className="ProductSection__description">Description: { activeProduct.description }
-					<br />Left: { activeProduct.stock }</span>
+					<span className="ProductSection__description">{ activeProduct.description }
+					{/* <br />Left: { activeProduct.stock } */}</span>
 					<div className="ProductSection__controls">
 						<div>
 							<button onClick={ onReduceToShoppingCart } disabled={ productCounter === 0 } >

@@ -1,16 +1,26 @@
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { currencyFormatter } from '@/helpers';
+import { startSavingOrder } from '@/store';
 import { CheckoutProductCard } from '@/modules/session';
+import { useEffect } from 'react';
 
 export const Checkout = () => {
-   const { isLoading } = useSelector( state => state.shop );
-   const { order, shoppingCart } = useSelector( state => state.app );
+   
+   const { isLoading, isSaving, order, shoppingCart } = useSelector( state => state.app );
+	const dispatch = useDispatch();
 	const navigate = useNavigate();
+	
+	useEffect(() => {
+		( !isLoading && !shoppingCart.length ) && navigate('/', { replace: true })
+	}, [ isLoading ]);
 
-   if ( isLoading ) return;
-
-   if ( shoppingCart.length === 0 ) return navigate('/', { replace: true });
+	if ( isLoading ) return;
+	
+	const handleSavingOrder = () => {
+		dispatch( startSavingOrder() );
+		navigate( '/account/orders' );
+	};
 
    return (
 		<section className="Section ">
@@ -56,7 +66,13 @@ export const Checkout = () => {
 							</tr>
 						</tbody>
 					</table>
-					<button className="OrderConfirm__button fluid">Make order</button>
+					<button 
+						className="OrderConfirm__button fluid" 
+						onClick={ handleSavingOrder } 
+						disabled={ isSaving }
+					>
+						{ isSaving ? '...' : 'Make order' }
+					</button>
 				</div>
 			</article>
 		</section>

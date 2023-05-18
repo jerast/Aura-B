@@ -9,6 +9,9 @@ const categorySquema = Schema({
 	description: {
 		type: String,
 	},
+	image: {
+		type: String,
+	},
 	state: {
 		type: Boolean,
 		default: true,

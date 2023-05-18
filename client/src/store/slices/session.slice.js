@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 export const sessionSlice = createSlice({
 	name: 'session',
 	initialState: {
-		status: 'not-auth', // 'auth', 'not-auth'
+		status: 'checking', // 'auth', 'not-auth'
 		user: {},
 		orders: [],
 		errorMessage: undefined,
@@ -32,6 +32,9 @@ export const sessionSlice = createSlice({
 		clearErrorMessage: (state) => {
 			state.errorMessage = undefined;
 		},
+		onAddToOrders: (state, { payload }) => {
+			state.orders.push( payload );
+		},
 	},
 });
 
@@ -42,4 +45,5 @@ export const {
 	onLoadOrders, 
    setErrorMessage, 
    clearErrorMessage, 
+	onAddToOrders,
 } = sessionSlice.actions;

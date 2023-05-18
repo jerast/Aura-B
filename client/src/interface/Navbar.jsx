@@ -1,25 +1,35 @@
-import { NavLink, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { onToogleShoppingCart, onToogleSidebar, startLogout } from '@/store';
-import { Search } from '@/interface';
+import { DropdownButton, Search } from '@/interface';
 import { MdMenu, MdOutlineShoppingCart } from 'react-icons/md';
 import { FaRegUser } from 'react-icons/fa';
 import { RiLoader4Line } from 'react-icons/ri';
 
 export const Navbar = () => {
 	const { status, user } = useSelector( state => state.session );
-	const { isLoading } = useSelector( state => state.shop );
-	const { shoppingCart } = useSelector( state => state.app );
+	const { isLoading, shoppingCart } = useSelector( state => state.app );
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	const handleLogout = () => {
-		dispatch(startLogout());
-		navigate('/', { replace: true });
+	// useEffect(() => {
+	// 	sidebarIsOpen 
+	// 		? toogleShow(true) 
+	// 		: setTimeout(() => toogleShow(false), 250);
+	// }, [sidebarIsOpen]);
+
+	const handleDropdown = () => {
+		navigate('/account');
 	};
 
 	const handleLogin = () => {
-		navigate('/login', { replace: true });
+		navigate('/login');
+		console.log( 'repeat' )
+	};
+
+	const handleLogout = () => {
+		navigate('/', { replace: true });
+		dispatch(startLogout());
 	};
 
 	return (
@@ -70,18 +80,33 @@ export const Navbar = () => {
 							)
 					}
 				</button>
-				<button 
-					className="Navbar__controls-login fluid" 
-					onClick={ (status === 'auth') ? handleLogout : handleLogin }
-					disabled={ isLoading }
+				<DropdownButton 
+					className="Navbar__controls-login"
+         		disabled={ isLoading || status === 'checking' }
+					conditions={ !isLoading && status === 'auth' }
 				>
-					{ ( isLoading )
-						? 	<RiLoader4Line className="animate-spin text-2xl"/>
-						: 	( status === 'auth' ) 
-							? <span className="fluid">{ user.name[0] }</span> 
-							: <FaRegUser /> 
-					}
-				</button>
+					<span 
+						className={`Navbar__controls-login-button fluid ${ (status === 'auth' && !isLoading ) ? 'logged' : '' }`} 
+						onClick={ (status !== 'auth') ? handleLogin : handleDropdown }
+					>
+						{ 
+							( isLoading || status === 'checking' )
+							? 	<RiLoader4Line className="animate-spin text-2xl"/>
+							: 	( status === 'auth' ) 
+								? user.name[0]
+								: <FaRegUser /> 
+						}
+					</span>
+					<div className="Navbar__controls-login-dropdown">
+						<ul>
+							<li><Link to='/account'>My Account</Link></li>
+							<li><Link to='/account/orders'>My Orders</Link></li>
+						</ul>
+						<ul>
+							<li><span onClick={ handleLogout }>Log Out</span></li>
+						</ul>
+					</div>
+				</DropdownButton>
 			</div>		
 		</nav>
 	);

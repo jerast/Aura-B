@@ -12,23 +12,20 @@ import {
 } from '@/store';
 
 export const useLoader = () => {
-	const { status, user } = useSelector( state => state.session );
-	const dispatch = useDispatch();
+	const { user, orders } = useSelector( state => state.session );
 	const { pathname } = useLocation();
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		handleLoadingData();
 	}, []);
 	
-	useEffect(() => {
-		(status === 'auth') && dispatch( startLoadingOrders() );
-	}, [status]);
-	
 	const handleLoadingData = async () => {
-		await dispatch( startVerifyingSession() );
-		await dispatch( startGetShoppingCart() );
+		const session = await dispatch( startVerifyingSession() );
 		await dispatch( startLoadingProducts() );
 		await dispatch( startLoadingCategories() );
+		await dispatch( startGetShoppingCart() );
+		( session ) && await dispatch( startLoadingOrders() );
 		dispatch( onLoadEnds() );
 	};
 

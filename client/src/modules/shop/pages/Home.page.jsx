@@ -1,9 +1,11 @@
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { ProductCard } from '@/modules/shop';
+import { resize } from '@/helpers';
 
 export const HomePage = () => {
-	const { isLoading, categories, products } = useSelector( state => state.shop );
+	const { isLoading } = useSelector( state => state.app );
+	const { categories, products } = useSelector( state => state.shop );
 	const navigate = useNavigate();
 
 	if ( isLoading ) return (
@@ -31,7 +33,10 @@ export const HomePage = () => {
 	return (
 		<>
 			<figure className="Banner">
-				<img className="Banner__image" src="/images/banner-1.jpg"/>
+				<img 
+					className="Banner__image" 
+					src="https://res.cloudinary.com/dlgvigwlh/image/upload/v1684384491/Aura-B/Posts/banner-1_sgryom.jpg"
+				/>
 				<figcaption className="Banner__caption">
 					<h1>Level up your beauty with our products collection</h1>
 					<button onClick={() => navigate('/products')}>Shop now</button>
@@ -50,7 +55,7 @@ export const HomePage = () => {
 							>
 								<img 
 									className="Category__image fluid"
-									src={`/images/${ (category.name).toLowerCase() }.jpg`} 
+									src={ resize( category.image, 350 ) } 
 									alt={ category.name } 
 								/>
 								<span className="Category__caption">{ category.name }</span>

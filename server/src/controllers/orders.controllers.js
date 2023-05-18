@@ -21,14 +21,19 @@ export const getOrders = async (request, response) => {
 
 export const createOrder = async (request, response) => {
 	try {
-		console.log( request.body );
-
-		// const order = new Order({ ...request.body });
-		// await order.save();
+		const order = new Order({ ...request.body });
+		await order.save( async function ( error, result ) {
+			result.list.forEach( async item => {
+				if (error) return getError(response, error);
+			
+				const { stock } = await Product.findById( item.product );
+				await Product.findByIdAndUpdate( item.product, { stock: stock - item.count });
+			});
+		});
 
 		return response.json({
 			ok: true,
-			// order,
+			order
 		});
 	} catch (error) {
 		getError(response, error);

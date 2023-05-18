@@ -1,9 +1,8 @@
-// import { shopApi } from '@/api';
 import { 
 	getLastOrder, 
 	getLastShoppingCart, 
 	setLastOrder, 
-	setLastShoppingCart 
+	setLastShoppingCart,
 } from '@/helpers';
 import { 
 	setActiveProduct, 
@@ -12,14 +11,15 @@ import {
 	onSetOrder, 
 	onMinusProductShoppingCart, 
 	onRemoveProductShoppingCart, 
-	onSetShoppingCart
+	onSetShoppingCart,
+	setActiveOrder,
 } from '../slices/app.slice';
 
 export const startLoadingSelectedOrder = ( order_id ) =>
-	async (dispatch, getState) => {
+	(dispatch, getState) => {
 		const { orders } = getState().session;
 
-		const findOrder = orders.some( order => order.id === order_id );
+		const findOrder = orders.find( order => order.id === order_id );
 		if ( !findOrder ) return;
 
 		dispatch( setActiveOrder(findOrder) );
@@ -32,7 +32,7 @@ export const startLoadingSelectedOrder = ( order_id ) =>
 	};
 
 export const startLoadingSelectedProduct = ( product_id ) =>
-	async (dispatch, getState) => {
+	(dispatch, getState) => {
 		const { products } = getState().shop;
 
 		const findProduct = products.find( product => product.id === product_id );
@@ -136,7 +136,7 @@ export const startSetShoppingCart = () =>
 	};
 
 export const startGetShoppingCart = () => 
-	(dispatch, getState) => {
+	(dispatch) => {
 		getLastOrder && dispatch( onSetOrder( getLastOrder ));
 		getLastShoppingCart && dispatch( onSetShoppingCart( getLastShoppingCart ));
 	};

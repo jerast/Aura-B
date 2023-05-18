@@ -4,12 +4,19 @@ import { currencyFormatter, dateFormatter } from '@/helpers';
 
 export const OrdersPage = () => {
 	const { orders } = useSelector( state => state.session );
-	const { isLoading } = useSelector( state => state.shop );
+	const { isLoading } = useSelector( state => state.app );
 	
 	if ( isLoading ) return (
 		<>
 			<h1>Orders</h1>
 			<h4>Loading...</h4>
+		</>
+	);
+	
+	if ( !orders.length ) return (
+		<>
+			<h1>Orders</h1>
+			<h4>Nothing in it...</h4>
 		</>
 	);
 

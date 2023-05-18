@@ -3,7 +3,6 @@ import { createSlice } from '@reduxjs/toolkit';
 export const shopSlice = createSlice({
 	name: 'shop',
 	initialState: {
-		isLoading: true,
       categories: [],
       products: [],
 	},
@@ -14,11 +13,8 @@ export const shopSlice = createSlice({
 		onLoadProducts: (state, { payload = [] }) => {
 			state.products = payload;
 		},
-		onLoadStarts: (state) => {
-			state.isLoading = true;
-		},
-		onLoadEnds: (state) => {
-			state.isLoading = false;
+		onReduceProductStock: (state, { payload }) => {
+			state.products[ payload.index ].stock -= payload.count;
 		},
 	},
 });
@@ -26,6 +22,5 @@ export const shopSlice = createSlice({
 export const { 
 	onLoadCategories,
 	onLoadProducts,
-	onLoadStarts,
-	onLoadEnds,
+	onReduceProductStock,
 } = shopSlice.actions;

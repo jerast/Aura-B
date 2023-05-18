@@ -1,10 +1,11 @@
 import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { filters, queryParams } from '@/helpers';
 import { ProductCard } from '@/modules/shop';
+import { filters, queryParams, sorters } from '@/helpers';
 
 export const ProductsPage = () => {
-	const { products, categories, isLoading } = useSelector( state => state.shop );
+	const { isLoading } = useSelector( state => state.app );
+	const { products, categories } = useSelector( state => state.shop );
 	const { search, pathname } = useLocation();
 
 	const handleFilterProducts = () => {
@@ -14,7 +15,7 @@ export const ProductsPage = () => {
 		if ( search ) 
 			return filters( products, queryParams(search) );
 
-		return [...products].sort( (a,b) => a.prices.wholesale > b.prices.wholesale );
+		return sorters( products, 'normal', false );
 	};
 
 	if ( isLoading ) return (

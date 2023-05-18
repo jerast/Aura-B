@@ -14,37 +14,35 @@ const orderSquema = Schema({
 		type: Number,
 		required: true,
 	},
-	wholesale: {
+	discount: {
 		type: Boolean,
 		required: true,
 	},
-	state: {
-		type: String,
-		required: true,
-	},
-	list: [
-		{
-			product: {
-				type: Schema.Types.ObjectId,
-				ref: 'Product',
-				required: true,
-			},
-			prices: {
-				retail: {
-					type: Number,
-					required: true,
-				},
-				wholesale: {
-					type: Number,
-					required: true,
-				},
-			},
-			count: {
+	list: [{
+		product: {
+			type: Schema.Types.ObjectId,
+			ref: 'Product',
+			required: true,
+		},
+		prices: {
+			retail: {
 				type: Number,
 				required: true,
 			},
-		}
-	],
+			wholesale: {
+				type: Number,
+				required: true,
+			},
+		},
+		count: {
+			type: Number,
+			required: true,
+		},
+	}],
+	state: {
+		type: String, // Active, Pending, delivered, cancelled
+		required: true,
+	},
 });
 
 orderSquema.method('toJSON', function () {

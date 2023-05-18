@@ -1,9 +1,8 @@
 import { shopApi } from '@/api';
-import { onLoadStarts, onLoadEnds, onLoadProducts, onLoadCategories } from '@/store';
-
+import { onLoadProducts, onLoadCategories } from '@/store';
 
 export const startLoadingCategories = () => 
-	async (dispatch, getState) => {
+	async (dispatch) => {
 		try {
 			const { data } = await shopApi.get('/categories');
 			dispatch( onLoadCategories(data.categories) );
@@ -13,7 +12,7 @@ export const startLoadingCategories = () =>
 	};
 
 export const startLoadingProducts = () => 
-	async (dispatch, getState) => {
+	async (dispatch) => {
 		try {
 			const { data } = await shopApi.get('/products');
 			dispatch( onLoadProducts(data.products) );

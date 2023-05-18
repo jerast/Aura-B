@@ -10,7 +10,7 @@ export const ProductCard = ({ product }) => {
 	return (
 		<div className="ProductCard ProductCart--primary" key={ product.id }>
 			<Link to={`/products/${ product.id }`}>
-				<img className="ProductCard__image" src={ resize( product.image, 250 ) } alt="" />
+				<img className="ProductCard__image" src={ resize( product.image, 350 ) } alt="" />
 			</Link>
 			<div className="ProductCard__info">
 				<Link className="ProductCard__name" to={`/products/${ product.id }`}>

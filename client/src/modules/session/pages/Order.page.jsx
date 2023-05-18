@@ -1,58 +1,83 @@
 import { useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearActiveOrder, startLoadingSelectedOrder } from '@/store';
-import { currencyFormatter, dateFormatter } from '@/helpers';
+import { clearActiveOrder, onLoadEnds, onLoadStarts, startLoadingSelectedOrder } from '@/store';
 
 export const OrderPage = () => {
 	const { id } = useParams();
-	const { activeOrder } = useSelector( state => state.app );
 	const { orders } = useSelector( state => state.session );
-	const { isLoading, products } = useSelector( state => state.shop );
+	const { isLoading, activeOrder } = useSelector( state => state.app );
 	const dispatch = useDispatch();
-	
-	useEffect(() => { 
-		(orders.length > 0) && dispatch(startLoadingSelectedOrder(id));
-	}, [id]);
-	
-	useEffect(() => { 
-		return () => dispatch(clearActiveOrder()); 
-	}, []);
 
-  // TODO: Fix bug 'Order not found'
+	useEffect(() => { 
+		if (!isLoading) {
+			dispatch( onLoadStarts() )
+			dispatch( startLoadingSelectedOrder(id) )
+			dispatch( onLoadEnds() )
+		}
+	}, [orders, isLoading]);
 
-	if ( !activeOrder || !products.length ) return (
+	useEffect(() => () => dispatch( clearActiveOrder() ), []);
+
+	if ( isLoading ) return (
 		<>
-			<h1>Order</h1>
+			<h1>order</h1>
 			<h4>Loading...</h4>
+		</>
+	);
+
+	if ( !activeOrder ) return (
+		<>
+			<h1>order</h1>
+			<h4>Order Not Found</h4>
 		</>
 	);
 
 	return (
 		<>
-			<h1>Order</h1>
-			<div>
-				<h4>{ (activeOrder) && id }</h4>
-				<div>{ dateFormatter( activeOrder.date ) }</div>
-				<div>{ currencyFormatter( activeOrder.total_price ) }</div>
-				<div>{ activeOrder.state }</div>
-				<ul>
-					{
-						activeOrder.details.map( (detail, index) => {
-							const item = products.find( product => product.id === detail.product_id );
-
-							return ( 
-								<p key={ index }>
-									<Link to={`/products/${ item.id }`}>{ item.name }</Link><br/>
-									<span>{ item.reference }</span><br/>
-									<span>{ currencyFormatter( (activeOrder.wholesale) ? detail.prices.wholesale : detail.prices.retail ) }</span><br/>
-									<span>Count: { detail.count }</span><br/>
-								</p>
-							);
-						})
-					}
-				</ul>
-			</div>
+			<h1>order</h1>
+			{ activeOrder.id }
 		</>
 	);
+
+	// return (
+	// 	<>
+	// 		<section className="ProductSection">
+	// 			<img className="ProductSection__image" src={ resize( activeProduct.image, 500 ) } alt="" />
+	// 			<div className="ProductSection__content">
+	// 				<div className="ProductSection__data">
+	// 					<h1 className="ProductSection__name">{ activeProduct.name }</h1>
+	// 					<span className="ProductSection__reference">{ activeProduct.reference }</span>
+	// 				</div>
+	// 				<div className="ProductSection__prices">
+	// 					<span>{ currencyFormatter( activeProduct.prices.retail ) }</span>
+	// 					<span><TbDiscountCheckFilled />{ currencyFormatter( activeProduct.prices.wholesale ) }</span>
+	// 				</div>
+	// 				<span className="ProductSection__description">Description: { activeProduct.description }
+	// 				<br />Left: { activeProduct.stock }</span>
+	// 				<div className="ProductSection__controls">
+	// 					<div>
+	// 						<button onClick={ onReduceToShoppingCart } disabled={ productCounter === 0 } >
+	// 							<MdOutlineRemove />
+	// 						</button>
+	// 						<span>{ productCounter }</span>
+	// 						<button onClick={ onAddToShoppingCart }>
+	// 							<MdOutlineAdd />
+	// 						</button>
+	// 					</div>
+	// 					<div>
+	// 						<button className="fluid" onClick={ onAddToShoppingCart }>Add to cart</button>
+	// 						{ (productCounter > 0) && <button onClick={ onRemoveToShoppingCart }><MdOutlineDelete /></button> }
+	// 					</div>
+	// 				</div>
+	// 			</div>
+	// 		</section>
+	// 		<section className="Section">
+	// 			<h1 className="Section__title">Related Products</h1>
+	// 			<article className="Section__content Section__content--products">
+					
+	// 			</article>
+	// 		</section>
+	// 	</>
+	// );
 };

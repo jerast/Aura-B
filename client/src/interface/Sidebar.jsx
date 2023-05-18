@@ -7,8 +7,8 @@ import { Search } from "@/interface";
 
 export const Sidebar = () => {
 
+	const { isLoading, sidebarIsOpen } = useSelector( state => state.app );
 	const { status } = useSelector( state => state.session );
-	const { sidebarIsOpen } = useSelector( state => state.app );
 	const [ isShow, toogleShow ] = useState( false );
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -52,21 +52,25 @@ export const Sidebar = () => {
 						<li><NavLink onClick={ handleCloseSidebar } to="/categories">Categories</NavLink></li>
 						<li><NavLink onClick={ handleCloseSidebar } to="/products">Products</NavLink></li>
 					</ul>
-					<ul className="Sidebar__group">
-						{
-							(status === 'auth') && (
-								<>
-									<li><NavLink onClick={ handleCloseSidebar } to="/account">My Account</NavLink></li>
-									<li><NavLink onClick={ handleCloseSidebar } to="/account/orders">My Orders</NavLink></li>
-								</>
-							)
-						}
-						<li>
-							<button onClick={ (status === 'auth') ? handleLogout : handleLogin }>
-								{ (status === 'auth') ? 'Log Out' : 'Log In' }
-							</button>
-						</li>
-					</ul>
+					{
+						(!isLoading && status === 'auth') && (
+							<ul className="Sidebar__group">
+								<li><NavLink onClick={ handleCloseSidebar } to="/account">My Account</NavLink></li>
+								<li><NavLink onClick={ handleCloseSidebar } to="/account/orders">My Orders</NavLink></li>
+							</ul>
+						)
+					}
+					{
+						(!isLoading) && (
+							<ul className="Sidebar__group">
+								<li>
+									<button onClick={ (status === 'auth') ? handleLogout : handleLogin }>
+										{ (status === 'auth') ? 'Log Out' : 'Log In' }
+									</button>
+								</li>
+							</ul>
+						)
+					}
 					<svg className="Sidebar__logo" viewBox="0 0 4074 1351" xmlns="http://www.w3.org/2000/svg">
 						<path d="M3717 400H3585L3228 1334H3371L3651 601.5L3931 1334H4074L3717 400Z" fill="inherit"/>
 						<path d="M1492 1351C1725.62 1351 1915 1173.03 1915 953.5V399H1781V940.5C1781 1093.76 1651.61 1218 1492 1218C1332.39 1218 1203 1093.76 1203 940.5V400H1069V953.5C1069 1173.03 1258.38 1351 1492 1351Z" fill="inherit"/>
