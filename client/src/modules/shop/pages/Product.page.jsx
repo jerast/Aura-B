@@ -55,8 +55,8 @@ export const ProductPage = () => {
 						<span>{ currencyFormatter( activeProduct.prices.retail ) }</span>
 						<span><TbDiscountCheckFilled />{ currencyFormatter( activeProduct.prices.wholesale ) }</span>
 					</div>
-					<span className="ProductSection__description">{ activeProduct.description }
-					{/* <br />Left: { activeProduct.stock } */}</span>
+					<span className="ProductSection__description">{ activeProduct.description }</span>
+					{/* <span>Left: { activeProduct.stock }</span> */}
 					<div className="ProductSection__controls">
 						<div>
 							<button onClick={ onReduceToShoppingCart } disabled={ productCounter === 0 } >

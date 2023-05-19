@@ -12,19 +12,12 @@ export const Navbar = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	// useEffect(() => {
-	// 	sidebarIsOpen 
-	// 		? toogleShow(true) 
-	// 		: setTimeout(() => toogleShow(false), 250);
-	// }, [sidebarIsOpen]);
-
-	const handleDropdown = () => {
-		navigate('/account');
-	};
+	// const handleDropdown = () => {
+	// 	navigate('/account');
+	// };
 
 	const handleLogin = () => {
 		navigate('/login');
-		console.log( 'repeat' )
 	};
 
 	const handleLogout = () => {
@@ -65,19 +58,17 @@ export const Navbar = () => {
 				>
 					{ ( isLoading ) 
 						? 	<RiLoader4Line className="animate-spin" />
-						: 	( 
-								<>
-										<MdOutlineShoppingCart />
-										{ 
-											!!shoppingCart.length && (
-												<span className="Navbar__notify">
-													<span className="Navbar__nofity-ping animate-ping"></span>
-													<span className="Navbar__notify-icon"></span>
-												</span>
-											)
-										}
-								</> 
-							)
+						: 	<>
+								<MdOutlineShoppingCart />
+								{ 
+									!!shoppingCart.length && (
+										<span className="Navbar__notify">
+											<span className="Navbar__nofity-ping animate-ping"></span>
+											<span className="Navbar__notify-icon"></span>
+										</span>
+									)
+								}
+							</> 
 					}
 				</button>
 				<DropdownButton 
@@ -87,7 +78,7 @@ export const Navbar = () => {
 				>
 					<span 
 						className={`Navbar__controls-login-button fluid ${ (status === 'auth' && !isLoading ) ? 'logged' : '' }`} 
-						onClick={ (status !== 'auth') ? handleLogin : handleDropdown }
+						onClick={ (status !== 'auth') ? handleLogin : null }
 					>
 						{ 
 							( isLoading || status === 'checking' )

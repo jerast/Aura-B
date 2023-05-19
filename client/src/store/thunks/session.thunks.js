@@ -12,7 +12,8 @@ import {
 	onAddToOrders, 
 	clearOrder,
 	clearShoppingCart,
-	onReduceProductStock,  
+	onReduceProductStock,
+	startLoadingProducts,  
 } from '@/store';
 
 export const startVerifyingSession = () =>
@@ -80,17 +81,20 @@ export const startSavingOrder = () =>
 	
 		dispatch( onSaveStarts() );
 
+		await dispatch( startLoadingProducts() );
+
 		const finalOrder = {
 			user: user.id,
 			total_price: order.total_products >= 6 ? order.total_prices.wholesale : order.total_prices.retail,
 			discount: order.total_products >= 6 ? true : false,
-			list: shoppingCart, 
-		};
-		
+			list: shoppingCart,
+		}; 
+
 		try {
 			const { data } = await shopApi.post(`/orders`, finalOrder);
 
-			if ( data.message ) throw new Error( data.message );
+			if ( data.message ) 
+				throw new Error( data.message );
 
 			data.order.list.forEach( element => {
 				const productIndex = products.findIndex( item => item.id === element.product );
@@ -106,7 +110,7 @@ export const startSavingOrder = () =>
 			removeLastShoppingCart();
 			
 		} catch (error) {
-			console.error('Something fails at Saving Order')
+			console.error('Something fails at Saving Order');
 		}
 
 		dispatch( onSaveEnds() );

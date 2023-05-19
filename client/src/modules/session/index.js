@@ -6,3 +6,5 @@ export * from './pages/Checkout.page';
 
 // components
 export * from './components/CheckoutProductCard';
+export * from './components/OrderCard';
+export * from './components/OrderProductCart';

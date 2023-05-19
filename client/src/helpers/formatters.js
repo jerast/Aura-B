@@ -1,5 +1,5 @@
 export const dateFormatter = ( value ) => 
-   new Date( value ).toLocaleDateString();
+   new Date( value ).toLocaleString();
 
 export const currencyFormatter = ( value ) => 
    new Intl.NumberFormat('es-CO', { 

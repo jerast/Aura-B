@@ -1,9 +1,9 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { currencyFormatter } from '@/helpers';
 import { startSavingOrder } from '@/store';
 import { CheckoutProductCard } from '@/modules/session';
-import { useEffect } from 'react';
+import { currencyFormatter } from '@/helpers';
 
 export const Checkout = () => {
    
@@ -25,7 +25,7 @@ export const Checkout = () => {
    return (
 		<section className="Section ">
 			<h1 className="Section__title">Checkout</h1>
-			<article className="OrderConfirm">
+			<article className="OrderConfirm OrderConfirm--checkout">
 				<div className="OrderConfirm__list">
 					{
 						(!isLoading && !!shoppingCart.length) && 

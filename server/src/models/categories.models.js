@@ -12,6 +12,9 @@ const categorySquema = Schema({
 	image: {
 		type: String,
 	},
+	type: {
+		type: String, // Makeup, Accesories
+	},
 	state: {
 		type: Boolean,
 		default: true,

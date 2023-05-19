@@ -1,10 +1,9 @@
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { currencyFormatter, dateFormatter } from '@/helpers';
+import { OrderCard } from '@/modules/session';
 
 export const OrdersPage = () => {
 	const { orders } = useSelector( state => state.session );
-	const { isLoading } = useSelector( state => state.app );
+	const { isLoading, isSaving } = useSelector( state => state.app );
 	
 	if ( isLoading ) return (
 		<>
@@ -21,17 +20,12 @@ export const OrdersPage = () => {
 	);
 
 	return (
-		<>
-			<h1>Orders</h1>
-			{
-				orders.map( order => (
-					<div key={ order.id }>
-						<Link to={`/account/orders/${ order.id }`}>
-							{ dateFormatter( order.date ) } - { currencyFormatter( order.total_price ) }
-						</Link>
-					</div>
-				))
-			}
-		</>
+		<section className="Section">
+			<h1 className="Section__title">My Orders</h1>
+			<article className="Section__content OrderList">
+			{ isSaving && <div>Wait a second...</div> }
+				{ [...orders].reverse().map( order => <OrderCard key={ order.id } order={ order } /> ) }
+			</article>
+		</section>
 	);
 };

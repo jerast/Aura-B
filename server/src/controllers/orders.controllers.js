@@ -21,10 +21,24 @@ export const getOrders = async (request, response) => {
 
 export const createOrder = async (request, response) => {
 	try {
-		const order = new Order({ ...request.body });
-		await order.save( async function ( error, result ) {
+		const order = request.body;
+		// const { list } = request.body;
+
+		// let verifyStock = false; 
+		// for ( let i = 0; i < list.length; i++ ) {
+		// 	const item = list[i];
+		// 	const product = await Product.findById( item.product );
+			
+		// 	if ( item.count > product.stock ) {
+		// 		verifyStock = true;
+		// 		break;
+		// 	};
+		// };		
+
+		const finalOrder = new Order({ ...order, state: /* verifyStock ? */ 'Pending'/*  : 'Active'  */});
+		await finalOrder.save( async function ( error, result ) {
 			result.list.forEach( async item => {
-				if (error) return getError(response, error);
+				if (error) return getError( response, error );
 			
 				const { stock } = await Product.findById( item.product );
 				await Product.findByIdAndUpdate( item.product, { stock: stock - item.count });
@@ -33,7 +47,7 @@ export const createOrder = async (request, response) => {
 
 		return response.json({
 			ok: true,
-			order
+			order: finalOrder,
 		});
 	} catch (error) {
 		getError(response, error);
