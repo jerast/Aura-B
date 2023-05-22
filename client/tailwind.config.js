@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       height: {
-        'main': 'calc(100vh - 4rem)'
+        'main': 'calc(100vh - 6.5rem)'
       }
     },
   },

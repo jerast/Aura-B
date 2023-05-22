@@ -1,4 +1,4 @@
-import { getError } from '../middlewares/getError.js';
+import { responseError } from '../middlewares/responseError.js';
 import Resupply from '../models/resupplies.models.js';
 import ResupplyProduct from '../models/resupplyProducts.models.js';
 import Product from '../models/products.models.js';
@@ -22,7 +22,7 @@ export const getResupplies = async (request, response) => {
 			ressuplies,
 		});
 	} catch (error) {
-		getError(response, error);
+		responseError(response, error);
 	}
 };
 
@@ -36,7 +36,7 @@ export const createResupply = async (request, response) => {
 			resupply,
 		});
 	} catch (error) {
-		getError(response, error);
+		responseError(response, error);
 	}
 };
 
@@ -63,7 +63,7 @@ export const getResupplyProducts = async (request, response) => {
 			},
 		});
 	} catch (error) {
-		getError(response, error);
+		responseError(response, error);
 	}
 };
 
@@ -91,6 +91,6 @@ export const createResupplyProduct = async (request, response) => {
 			resupplyProduct,
 		});
 	} catch (error) {
-		getError(response, error);
+		responseError(response, error);
 	}
 };

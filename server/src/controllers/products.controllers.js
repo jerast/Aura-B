@@ -1,4 +1,4 @@
-import { getError } from '../middlewares/getError.js';
+import { responseError } from '../middlewares/responseError.js';
 import Product from '../models/products.models.js';
 
 export const getProducts = async (request, response) => {
@@ -11,7 +11,7 @@ export const getProducts = async (request, response) => {
 			products,
 		});
 	} catch (error) {
-		getError(response, error);
+		responseError(response, error);
 	}
 };
 
@@ -33,7 +33,7 @@ export const getProduct = async (request, response) => {
 			product,
 		});
 	} catch (error) {
-		getError(response, error);
+		responseError(response, error);
 	}
 };
 
@@ -47,7 +47,7 @@ export const createProduct = async (request, response) => {
 			product,
 		});
 	} catch (error) {
-		getError(response, error);
+		responseError(response, error);
 	}
 };
 
@@ -75,7 +75,7 @@ export const updateProduct = async (request, response) => {
 			product: updatedProduct,
 		});
 	} catch (error) {
-		getError(response, error);
+		responseError(response, error);
 	}
 };
 
@@ -103,7 +103,7 @@ export const toogleProduct = async (request, response) => {
 			product: updatedProduct,
 		});
 	} catch (error) {
-		getError(response, error);
+		responseError(response, error);
 	}
 };
 
@@ -127,6 +127,6 @@ export const deleteProduct = async (request, response) => {
 			message: 'Product deleted',
 		});
 	} catch (error) {
-		getError(response, error);
+		responseError(response, error);
 	}
 };

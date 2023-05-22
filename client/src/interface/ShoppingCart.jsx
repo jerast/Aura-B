@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { onToogleShoppingCart } from '@/store';
 import { currencyFormatter } from '@/helpers';
 import { ShoppingCartItem } from '@/interface';
-import { MdClose } from 'react-icons/md';
+import { MdAddShoppingCart, MdClose } from 'react-icons/md';
 import { TbDiscountCheckFilled } from 'react-icons/tb';
 
 export const ShoppingCart = () => {
@@ -16,9 +16,9 @@ export const ShoppingCart = () => {
 		dispatch(onToogleShoppingCart());
 	};
 
-	const handlePayShoppingCart = () => {
+	const handlePayShoppingCart = ( url ) => {
 		handleCloseShoppingCart();
-		navigate('/account/orders/checkout');
+		navigate( url );
 	};
 
 	return (
@@ -39,25 +39,32 @@ export const ShoppingCart = () => {
 						shoppingCart.map( item => <ShoppingCartItem key={ item.product } id={ item.product }/> ) 
 				}
 				{
-					(order.total_products > 0) &&
-					<div className={`ShoppingCart__confirm ${ order.total_products >= 6 ? 'discount' : '' }`}>
-						<button className="ShoppingCart__confirm-button fluid" onClick={ handlePayShoppingCart }>
-							<span>Go to pay:</span> 
-							<p>
-								<span className="fluid">{ currencyFormatter( order.total_prices.retail ) }</span>
-								<span className="fluid">{ currencyFormatter( order.total_prices.wholesale ) }</span>
-							</p>
-						</button>
-						<div>
-							{
-								(order.total_products >= 6)
+					(order.total_products > 0) ?
+					<>
+						<div className={`ShoppingCart__confirm ${ order.total_products >= 6 ? 'discount' : '' }`}>
+							<button className="ShoppingCart__confirm-button fluid" onClick={ () => handlePayShoppingCart('/account/orders/checkout') }>
+								<span>Go to pay:</span> 
+								<p>
+									<span className="fluid">{ currencyFormatter( order.total_prices.retail ) }</span>
+									<span className="fluid">{ currencyFormatter( order.total_prices.wholesale ) }</span>
+								</p>
+							</button>
+							<div>
+								{
+									(order.total_products >= 6)
 									? <p><TbDiscountCheckFilled />GOT THE DISCOUNT!</p>
 									: <p><span>{ 6 - order.total_products }</span> product(s) more to <span>get DISCOUNT</span></p>
-							}
+								}
+							</div>
 						</div>
+						<Link className="ShoppingCart__link fluid" to={'/products'} onClick={ handleCloseShoppingCart }>See more products</Link>
+					</> : 
+					<div className="ShoppingCart__empty">
+						<MdAddShoppingCart />
+						<span>You don't have products on your Cart yet!<br /> :( </span>
+						<button className="ShoppingCart__no-products fluid" onClick={() => handlePayShoppingCart('/products')}>Shop Now</button>
 					</div>
 				}
-				<Link className="ShoppingCart__link fluid" to={'/products'} onClick={ handleCloseShoppingCart }>See more products</Link>
 			</div>
 		</div>
 	);

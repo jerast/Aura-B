@@ -37,10 +37,10 @@ export const Footer = () => {
 				</div>
 				<div className="Footer__article">
 					<h3 className="Footer__title">Company</h3>
-					<Link className="Footer__link" to="">
+					<Link className="Footer__link">
 						About Us
 					</Link>
-					<Link className="Footer__link" to="">
+					<Link className="Footer__link">
 						Contact
 					</Link>
 				</div>

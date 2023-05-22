@@ -58,11 +58,7 @@ export const OrderPage = () => {
 			<article className="OrderConfirm OrderConfirm--order">
 				<div className="OrderConfirm__resume">
 					<table>
-						<thead>
-							<tr>
-								<th colSpan={ 2 }>Resume</th>
-							</tr>
-						</thead>
+						
 						<tbody>
 							<tr>
 								<td>Start Date</td>
@@ -72,7 +68,6 @@ export const OrderPage = () => {
 								<td>Total Products</td>
 								<td>{ activeOrder.list.reduce( (accum, item) => accum + item.count, 0 ) } products</td>
 							</tr>
-							<tr><td><hr /></td></tr>
 							<tr className="OrderConfirm__discount">
 								<td>Discount</td>
 								<td>
@@ -84,6 +79,7 @@ export const OrderPage = () => {
 									}
 								</td>
 							</tr>
+							<tr><td><hr /></td><td><hr /></td></tr>
 							<tr className="OrderConfirm__total">
 								<td>Total</td>
 								<td>{ currencyFormatter( activeOrder.total_price ) }</td>

@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 export const sessionSlice = createSlice({
 	name: 'session',
 	initialState: {
+		isChecking: false,
 		status: 'checking', // 'auth', 'not-auth'
 		user: {},
 		orders: [],
@@ -11,17 +12,23 @@ export const sessionSlice = createSlice({
 	reducers: {
 		onChecking: (state) => {
 			state.status = 'checking';
+			state.isChecking = true;
 		},
 		onLogin: (state, { payload }) => {
+			state.isChecking = false;
 			state.status = 'auth';
 			state.user = payload;
 			state.errorMessage = undefined;
 		},
 		onLogout: (state, { payload }) => {
+			state.isChecking = false;
 			state.status = 'not-auth';
 			state.user = {};
 			state.orders = [];
 			state.errorMessage = payload;
+		},
+		onAddToOrders: (state, { payload }) => {
+			state.orders.push( payload );
 		},
 		onLoadOrders: (state, { payload = [] }) => {
 			state.orders = payload;
@@ -32,9 +39,7 @@ export const sessionSlice = createSlice({
 		clearErrorMessage: (state) => {
 			state.errorMessage = undefined;
 		},
-		onAddToOrders: (state, { payload }) => {
-			state.orders.push( payload );
-		},
+		
 	},
 });
 

@@ -2,7 +2,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 
 export const AdminRoutes = () => {
 	
-	if (!localStorage.getItem('user')) 
+	if (!localStorage.getItem('sessionToken')) 
 		return <Navigate to="/login" />;
 
 	return (

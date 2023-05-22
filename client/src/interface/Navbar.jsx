@@ -47,7 +47,7 @@ export const Navbar = () => {
 			<div className="Navbar__nav">
 				<NavLink to="/categories">Categories</NavLink>
 				<NavLink to="/products">Products</NavLink>
-				<NavLink to="/contact">Contact</NavLink>
+				<NavLink>Contact</NavLink>
 			</div>
 			<div className="Navbar__controls">
 				<Search />
@@ -84,7 +84,7 @@ export const Navbar = () => {
 							( isLoading || status === 'checking' )
 							? 	<RiLoader4Line className="animate-spin text-2xl"/>
 							: 	( status === 'auth' ) 
-								? user.name[0]
+								? user.name[0]+user.surname[0]
 								: <FaRegUser /> 
 						}
 					</span>

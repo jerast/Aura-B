@@ -13,45 +13,68 @@ import {
 	clearOrder,
 	clearShoppingCart,
 	onReduceProductStock,
-	startLoadingProducts,  
+	startLoadingProducts,
+	clearErrorMessage,  
 } from '@/store';
 
 export const startVerifyingSession = () =>
-	(dispatch) => {
-		const userSession = localStorage.getItem('user');
-		( userSession ) 
-			? dispatch( onLogin(JSON.parse(userSession)) )
-			: dispatch( onLogout() );
-
-		return !!userSession;
-	};
-
-export const startLogin = () => 
 	async (dispatch) => {
-		try {
-			dispatch( onChecking() );
+		dispatch( onChecking() );
 
-			// TODO: User session request
-			localStorage.setItem( 'user', JSON.stringify(user) );
-			dispatch( onLogin( user ) );
+      const token = localStorage.getItem('sessionToken');
 
-			const filter = {
-				field: 'user',
-				value: user.id,
-			};
-			const { data } = await shopApi.get('/orders', { headers: filter });
-			dispatch( onLoadOrders(data.orders) );
+      if ( !token ) {
+         return dispatch( startLogout() );
+      }
+
+      try {
+         const { data } = await shopApi.get('/users/jwt');
 			
-		} catch (error) {
-			dispatch( onLogout('failed sesion') );
+         localStorage.setItem( 'sessionToken', data.token );
+
+         dispatch( onLogin( data.user ) );
+			dispatch( startLoadingOrders() );
+      } 
+      catch {
+         localStorage.removeItem('token');
+         dispatch( startLogout() );
+      }
+   };
+
+export const startSignin = ({ name, surname, email, password, phone }) => 
+	async (dispatch, getState) => {
+      try {
+         const { data } = await shopApi.post('/users/new', { name, surname, email, password, phone })
+         dispatch( startLogin( data.user ) );
+      }  
+      catch ({ response }) {
+         dispatch( startLogout(response.data.message) );
+      }
+   };
+
+export const startLogin = ({ email, password }) => 
+	async (dispatch) => {
+		dispatch( onChecking() );
+
+		try {
+			const { data } = await shopApi.post('/users/', { email, password })
+			localStorage.setItem( 'sessionToken', data.token );
+			dispatch( onLogin( data.user ) );
+			dispatch( startLoadingOrders() );
+		} catch ({ response }) {
+			dispatch( startLogout(response.data.message) );
 		}
 	};
 
-export const startLogout = () => 
+export const startLogout = ( message ) => 
 	(dispatch) => {
-		localStorage.removeItem('user');
-		dispatch( onLogout() );
-		dispatch( clearActiveOrder() );
+		localStorage.removeItem('sessionToken');
+		dispatch( onLogout(message) );
+		// dispatch( clearActiveOrder() );
+
+		if (message) {
+			setTimeout(() => dispatch(clearErrorMessage()), 10)
+		}
 	};
 
 export const startLoadingOrders = () =>
@@ -88,6 +111,7 @@ export const startSavingOrder = () =>
 			total_price: order.total_products >= 6 ? order.total_prices.wholesale : order.total_prices.retail,
 			discount: order.total_products >= 6 ? true : false,
 			list: shoppingCart,
+			date: new Date(),
 		}; 
 
 		try {

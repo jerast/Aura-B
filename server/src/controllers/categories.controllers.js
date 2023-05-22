@@ -1,4 +1,4 @@
-import { getError } from '../middlewares/getError.js';
+import { responseError } from '../middlewares/responseError.js';
 import Category from '../models/categories.models.js';
 
 export const getCategories = async (request, response) => {
@@ -10,7 +10,7 @@ export const getCategories = async (request, response) => {
 			categories,
 		});
 	} catch (error) {
-		getError(response, error);
+		responseError(response, error);
 	}
 };
 
@@ -32,7 +32,7 @@ export const getCategory = async (request, response) => {
 			category,
 		});
 	} catch (error) {
-		getError(response, error);
+		responseError(response, error);
 	}
 };
 
@@ -46,7 +46,7 @@ export const createCategory = async (request, response) => {
 			category,
 		});
 	} catch (error) {
-		getError(response, error);
+		responseError(response, error);
 	}
 };
 
@@ -82,7 +82,7 @@ export const updateCategory = async (request, response) => {
 			category: updatedCategory,
 		});
 	} catch (error) {
-		getError(response, error);
+		responseError(response, error);
 	}
 };
 
@@ -110,7 +110,7 @@ export const toogleCategory = async (request, response) => {
 			category: updatedCategory,
 		});
 	} catch (error) {
-		getError(response, error);
+		responseError(response, error);
 	}
 };
 
@@ -134,6 +134,6 @@ export const deleteCategory = async (request, response) => {
 			message: 'Category deleted',
 		});
 	} catch (error) {
-		getError(response, error);
+		responseError(response, error);
 	}
 };

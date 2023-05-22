@@ -6,13 +6,12 @@ import {
 	onLoadEnds, 
 	startGetShoppingCart, 
 	startLoadingCategories, 
-	startLoadingOrders, 
 	startLoadingProducts, 
 	startVerifyingSession 
 } from '@/store';
 
 export const useLoader = () => {
-	const { user, orders } = useSelector( state => state.session );
+	const { user } = useSelector( state => state.session );
 	const { pathname } = useLocation();
 	const dispatch = useDispatch();
 
@@ -21,11 +20,10 @@ export const useLoader = () => {
 	}, []);
 	
 	const handleLoadingData = async () => {
-		const session = await dispatch( startVerifyingSession() );
+		await dispatch( startVerifyingSession() );
 		await dispatch( startLoadingProducts() );
 		await dispatch( startLoadingCategories() );
 		await dispatch( startGetShoppingCart() );
-		( session ) && await dispatch( startLoadingOrders() );
 		dispatch( onLoadEnds() );
 	};
 

@@ -32,7 +32,7 @@
 		@apply font-bold uppercase;
 	}
 	.NotifyBar .link {
-		@apply underline mx-2;
+		@apply underline mx-2 normal-case;
 	}
 
 	.Navbar {
@@ -66,17 +66,14 @@
 	.Navbar__controls-cart {
 		@apply relative text-2xl flex justify-center items-center;
 	}
-	.Navbar__controls-login-button {
-		@apply relative justify-center items-center text-[21px];
-	}
 	.Navbar__controls-login {
 		@apply relative hidden sm:flex
 	}
 	.Navbar__controls-login-button {
-		@apply w-full h-full flex justify-center items-center rounded-full;
+		@apply relative w-full h-full flex justify-center items-center rounded-full text-[21px];
 	}
 	.Navbar__controls-login-button.logged {
-		@apply bg-violet-700 hover:bg-violet-600 text-white;
+		@apply bg-violet-700 hover:bg-violet-600 text-white text-lg uppercase;
 	}
 	.Navbar__controls-login-dropdown {
 		@apply absolute w-52 xl:w-60 bg-white shadow-[0_10px_50px_rgba(0,0,0,0.1)] rounded-lg top-11 2xl:top-12 mt-2 right-0  z-10 px-8 py-4 flex flex-col 
@@ -262,6 +259,15 @@
 	.ShoppingCart__link {
 		@apply text-gray-500 hover:text-gray-700 text-center;
 	}
+	.ShoppingCart__empty {
+		@apply grid h-full content-center justify-items-center text-center
+	}
+	.ShoppingCart__empty svg {
+		@apply text-4xl h-16 w-16 text-white rounded-full bg-violet-600  p-4 m-8
+	}
+	.ShoppingCart__empty button {
+		@apply px-7 w-full font-bold text-xl h-16 bg-violet-700 hover:bg-violet-600 text-white rounded-2xl my-10 mb-32 ;
+	}
 
 	.ShoppingCartItem {
 		@apply relative focus:bg-gray-100 rounded-md grid grid-cols-[auto_minmax(0,1fr)_auto] grid-rows-[auto_auto] text-sm py-3 text-gray-800 gap-x-6 gap-y-4;
@@ -311,7 +317,7 @@
 	/* Home Page */
 
 	.Banner {
-		@apply h-[30rem] xl:h-[36rem] grid relative lg:rounded-3xl overflow-hidden lg:mx-32 2xl:mx-60;
+		@apply h-main sm:h-[30rem] xl:h-[36rem] grid relative lg:rounded-3xl overflow-hidden lg:mx-32 2xl:mx-60;
 	}
 	.Banner__image {
 		@apply h-full w-full object-cover object-center;
@@ -339,7 +345,7 @@
 		@apply grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8 w-full;
 	}
 	.Section__content--products {
-		@apply grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-6 lg:gap-8 w-full justify-items-center;
+		@apply grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-6 lg:gap-8 w-full;
 	}
 
 	.Category {
@@ -414,7 +420,7 @@
 	/* Products Page */
 
 	.ProductList {
-		@apply grid gap-y-14 gap-x-4 lg:gap-x-6 2xl:gap-x-8 justify-center
+		@apply grid gap-y-14 gap-x-4 lg:gap-x-6 2xl:gap-x-8
 		   grid-cols-[repeat(auto-fill,minmax(140px,auto))] 
 		sm:grid-cols-[repeat(auto-fill,minmax(180px,auto))]
 		xl:grid-cols-[repeat(auto-fill,minmax(200px,auto))];
@@ -449,6 +455,11 @@
 		hover:border-violet-700 hover:bg-violet-700 hover:text-white hover:shadow-violet-300 
 		active:bg-violet-500 duration-100;
 	}
+	/* .ProductCard__button span {
+		@apply py-2 w-28 rounded-full text-xs font-semibold
+		bg-violet-600 text-white hover:shadow-violet-300 
+		active:bg-violet-500 duration-100;
+	} */
 	.ProductCard__button svg {
 		@apply text-3xl p-1 text-white bg-gray-600 rounded-full hidden;
 	}
