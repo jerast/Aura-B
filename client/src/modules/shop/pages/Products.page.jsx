@@ -25,11 +25,18 @@ export const ProductsPage = () => {
 		</>
 	);
 
+	if ( !products.length ) return (
+		<>
+			<h1>Products</h1>
+			<h3>No Products finded</h3>
+		</>
+	);
+
 	return (
 		<section className="Section">
 			<article className="ProductList">
 			{
-				(!!products.length) && handleFilterProducts().map( product => (
+				handleFilterProducts().map( product => (
 					<ProductCard key={ product.id } product={ product } />
 				))
 			}

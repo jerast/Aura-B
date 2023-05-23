@@ -3,7 +3,7 @@ import { Checkout, OrderPage, OrdersPage } from '@/modules/session';
 
 export const UserRoutes = () => {
 
-	if (!localStorage.getItem('sessionToken')) return <Navigate to="/login" />;
+	if (!localStorage.getItem('sessionToken')) return <Navigate to="/login" replace/>;
 
 	return (
 		<Routes>

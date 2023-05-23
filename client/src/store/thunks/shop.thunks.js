@@ -16,6 +16,7 @@ export const startLoadingProducts = () =>
 		try {
 			const { data } = await shopApi.get('/products');
 			dispatch( onLoadProducts(data.products) );
+			
 		} catch {
 			console.error( 'Something fails at load Products' );
 		}

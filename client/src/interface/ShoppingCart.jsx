@@ -8,11 +8,12 @@ import { TbDiscountCheckFilled } from 'react-icons/tb';
 
 export const ShoppingCart = () => {
 
-	const { isLoading, shoppingCart, order, shoppingCartIsOpen } = useSelector( state => state.app );
+	const { isLoading, order, shoppingCart, shoppingCartIsOpen } = useSelector( state => state.app );
+	const { products } = useSelector( state => state.shop );
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	const handleCloseShoppingCart = () => {
+	const handleCloseShoppingCart = () => { 
 		dispatch(onToogleShoppingCart());
 	};
 
@@ -20,6 +21,10 @@ export const ShoppingCart = () => {
 		handleCloseShoppingCart();
 		navigate( url );
 	};
+
+	if ( !products.length ) {
+		return; 
+	}
 
 	return (
 		<div className={`ShoppingCart right-0 ${ shoppingCartIsOpen ? 'w-full' : 'w-fit' }`}>

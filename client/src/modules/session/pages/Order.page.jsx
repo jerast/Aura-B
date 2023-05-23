@@ -61,6 +61,10 @@ export const OrderPage = () => {
 						
 						<tbody>
 							<tr>
+								<td>Order No.</td>
+								<td>{ activeOrder.id }</td>
+							</tr>
+							<tr>
 								<td>Start Date</td>
 								<td>{ dateFormatter(activeOrder.date) }</td>
 							</tr>
@@ -73,7 +77,7 @@ export const OrderPage = () => {
 								<td>
 									{ 
 										currencyFormatter( activeOrder.discount 
-											? activeOrder.list.reduce( (accum, item) => accum + (item.prices.retail - item.prices.wholesale) * item.count, 0 ) 
+											? activeOrder.list.reduce( (accum, item) => accum + (item.prices.retail - item.prices.wholesale) * item.count, 0 ) * (-1)
 								 			: 0 
 										)
 									}

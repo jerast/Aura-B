@@ -92,8 +92,9 @@ export const startAddToShoppingCart = ( productToUpdate, count = 1 ) =>
 		const { shoppingCart } = getState().app;
 		const productIndex = shoppingCart.findIndex( prod => prod.product === productToUpdate.product );
 		
-		if ( productIndex === -1 ) 
+		if ( productIndex === -1 ) {
 			return dispatch( onAddProductShoppingCart({ ...productToUpdate, count }) );
+		}
 
 		dispatch( onPlusProductShoppingCart({ index: productIndex, count }) );
 	};
@@ -137,6 +138,6 @@ export const startSetShoppingCart = () =>
 
 export const startGetShoppingCart = () => 
 	(dispatch) => {
-		getLastOrder && dispatch( onSetOrder( getLastOrder ));
-		getLastShoppingCart && dispatch( onSetShoppingCart( getLastShoppingCart ));
+		(getLastOrder) && dispatch( onSetOrder(getLastOrder));
+		(getLastShoppingCart) && dispatch( onSetShoppingCart(getLastShoppingCart));
 	};

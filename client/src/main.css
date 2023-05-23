@@ -4,7 +4,6 @@
 
 @layer components {
 
-
 	/* Generals */
 
 	* {
@@ -209,10 +208,10 @@
 		@apply absolute -z-10 bg-black bg-opacity-40 w-full h-full;
 	}
 	.ShoppingCart__content {
-		@apply absolute flex flex-col gap-4 md:gap-6 bg-white right-0 h-full w-full sm:w-[30rem] overflow-y-auto py-12 px-8;
+		@apply absolute flex flex-col gap-8 md:gap-6 bg-white right-0 h-full w-full sm:w-[30rem] overflow-y-auto py-12 px-8;
 	}
 	.ShoppingCart__header {
-		@apply flex justify-between sm:flex-row-reverse font-bold text-2xl text-gray-700 pb-8;
+		@apply flex justify-between sm:flex-row-reverse font-bold text-2xl text-gray-700 lg:mb-8;
 	}
 	.ShoppingCart__close-button {
 		@apply text-2xl text-gray-500 hover:text-gray-800;
@@ -260,7 +259,7 @@
 		@apply text-gray-500 hover:text-gray-700 text-center;
 	}
 	.ShoppingCart__empty {
-		@apply grid h-full content-center justify-items-center text-center
+		@apply grid h-full content-center justify-items-center text-center font-semibold text-gray-500
 	}
 	.ShoppingCart__empty svg {
 		@apply text-4xl h-16 w-16 text-white rounded-full bg-violet-600  p-4 m-8
@@ -282,10 +281,10 @@
 		@apply text-gray-700 hover:text-gray-400 overflow-hidden text-ellipsis h-fit leading-[16px];
 	}
 	.ShoppingCartItem__remove {
-		@apply absolute text-xl rounded-full my-2 text-gray-600 justify-self-end top-1;
+		@apply absolute text-xl rounded-full my-2 p-2 text-gray-600 justify-self-end -top-1 -right-2 bg-gray-100;
 	}
 	.ShoppingCartItem__controls {
-		@apply flex border border-gray-100 shadow-sm shadow-gray-300 rounded-full w-fit h-fit self-end text-lg items-center;
+		@apply flex border border-gray-100 shadow shadow-gray-300 rounded-full w-fit h-fit self-end text-lg items-center;
 	}
 	.ShoppingCartItem__controls button {
 		@apply h-10 w-10 flex justify-center items-center rounded-full active:bg-gray-50 text-xl disabled:text-gray-300;
@@ -575,6 +574,64 @@
 	}
 	.OrderProductCard__price.discount {
 		@apply text-blue-700;
+	}
+
+
+
+	/* Auth Page */
+
+	.Auth {
+		@apply fixed w-screen h-screen left-0 top-0 z-10 /* overflow-hidden */
+	}
+	.Auth--sign-up .Auth__item {
+		@apply -translate-y-full bg-[#e9dbf4]
+	}
+	.Auth__container {
+		@apply /* animate-in fade-in duration-1000 backdrop-blur-lg */ /* absolute z-10 top-0 */ w-full h-full grid
+	}
+	.Auth__item {
+		@apply flex justify-center items-center min-h-[600px] h-screen w-full fluid ease-in-out duration-300 bg-[#f4dbe1]
+	}
+	.Auth__form {
+		@apply flex flex-col gap-3 bg-white sm:max-w-[26rem] w-full h-full md:h-fit p-10 md:rounded-3xl md:my-24 shadow-2xl
+	}
+	.Auth__title {
+		@apply text-center text-2xl my-3
+	}
+	.Auth__description {
+		@apply text-center text-sm mb-5
+	}
+	.Auth__options {
+		@apply text-sm flex gap-2 my-1
+	}
+	.Auth__options span:nth-of-type(2) {
+		@apply font-bold text-violet-700 cursor-pointer
+	}
+
+
+
+	/* Forms */
+
+	.form__input {
+		@apply relative cursor-text text-gray-700
+	}
+	.form__input-field {
+		@apply focus-visible:outline-violet-400 bg-transparent h-[52px] border rounded-full border-gray-300 px-4 ease-linear duration-100 w-full
+	}
+	.form__input-label {
+		@apply absolute my-[14px] mx-4 px-2 top-0 left-0 bg-white ease-linear duration-100 text-gray-500
+	}
+	.form__input-icon {
+		@apply absolute my-[14px] text-xl mx-4 px-2 right-0 bg-white text-gray-500 cursor-pointer z-10
+	}
+	.form__input-field:focus ~ .form__input-label {
+		@apply text-violet-500 -top-6 text-sm mx-2
+	}
+	.form__input-label--active {
+		@apply -top-6 text-sm mx-2
+	}
+	.form__button {
+		@apply h-14 rounded-full mt-8 text-white bg-violet-700 hover:bg-violet-600 active:bg-violet-700
 	}
 
 }

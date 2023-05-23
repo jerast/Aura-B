@@ -1,12 +1,10 @@
 import { shopApi } from '@/api';
-import { user } from '@/data/testingData'; // Offline Data Testing
 import { removeLastOrder, removeLastShoppingCart } from '@/helpers';
 import { 
 	onLoadOrders, 
 	onChecking, 
 	onLogin, 
 	onLogout, 
-	clearActiveOrder, 
 	onSaveStarts, 
 	onSaveEnds, 
 	onAddToOrders, 
