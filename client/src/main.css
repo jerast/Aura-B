@@ -183,7 +183,10 @@
 		@apply absolute flex flex-col bg-white left-0 h-full w-full sm:w-96 2xl:w-[30rem] overflow-y-auto py-12 px-14;
 	}
 	.Sidebar__header {
-		@apply flex justify-start sm:justify-end mb-10;
+		@apply flex justify-between sm:justify-between mb-10;
+	}
+	.Sidebar__header > *:nth-child(2) {
+		@apply block h-11 w-11
 	}
 	.Sidebar__close-button {
 		@apply text-2xl text-gray-500 hover:text-gray-800;
@@ -581,19 +584,16 @@
 	/* Auth Page */
 
 	.Auth {
-		@apply fixed w-screen h-screen left-0 top-0 z-10 /* overflow-hidden */
+		@apply fixed w-screen h-screen left-0 top-0 z-10 grid/* overflow-hidden */
 	}
-	.Auth--sign-up .Auth__item {
-		@apply -translate-y-full bg-[#e9dbf4]
+	.Auth--sign-up .Auth__box {
+		@apply -translate-y-full /* bg-[#f4dbe1] */
 	}
-	.Auth__container {
-		@apply /* animate-in fade-in duration-1000 backdrop-blur-lg */ /* absolute z-10 top-0 */ w-full h-full grid
-	}
-	.Auth__item {
-		@apply flex justify-center items-center min-h-[600px] h-screen w-full fluid ease-in-out duration-300 bg-[#f4dbe1]
+	.Auth__box {
+		@apply flex justify-center items-center h-screen w-full fluid ease-in-out duration-300 bg-[#e9dbf4]
 	}
 	.Auth__form {
-		@apply flex flex-col gap-3 bg-white sm:max-w-[26rem] w-full h-full md:h-fit p-10 md:rounded-3xl md:my-24 shadow-2xl
+		@apply flex flex-col gap-3 bg-white sm:max-w-[26rem] max-h-screen overflow-y-auto w-full h-fit md:h-fit p-10 md:rounded-3xl shadow-2xl
 	}
 	.Auth__title {
 		@apply text-center text-2xl my-3
@@ -607,6 +607,9 @@
 	.Auth__options span:nth-of-type(2) {
 		@apply font-bold text-violet-700 cursor-pointer
 	}
+	.Auth__error-message {
+		@apply flex items-center justify-center h-6 text-sm text-red-500
+	}
 
 
 
@@ -616,10 +619,10 @@
 		@apply relative cursor-text text-gray-700
 	}
 	.form__input-field {
-		@apply focus-visible:outline-violet-400 bg-transparent h-[52px] border rounded-full border-gray-300 px-4 ease-linear duration-100 w-full
+		@apply outline-violet-400 focus-visible:outline-violet-400 bg-transparent h-[52px] border rounded-full border-gray-300 px-4 ease-linear duration-100 w-full
 	}
 	.form__input-label {
-		@apply absolute my-[14px] mx-4 px-2 top-0 left-0 bg-white ease-linear duration-100 text-gray-500
+		@apply absolute my-[14px] mx-4 px-2 top-0 left-0 bg-white rounded-full ease-linear duration-100 text-gray-500
 	}
 	.form__input-icon {
 		@apply absolute my-[14px] text-xl mx-4 px-2 right-0 bg-white text-gray-500 cursor-pointer z-10
@@ -628,10 +631,10 @@
 		@apply text-violet-500 -top-6 text-sm mx-2
 	}
 	.form__input-label--active {
-		@apply -top-6 text-sm mx-2
+		@apply -top-6 text-sm mx-2 text-gray-400
 	}
 	.form__button {
-		@apply h-14 rounded-full mt-8 text-white bg-violet-700 hover:bg-violet-600 active:bg-violet-700
+		@apply h-14 py-4 rounded-full mt-1 text-white bg-violet-700 hover:bg-violet-600 active:bg-violet-700 disabled:bg-gray-500
 	}
 
 }

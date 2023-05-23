@@ -7,32 +7,30 @@ export const Breadcrubs = () => {
    const { isLoading } = useSelector( state => state.app );
    const { pathname } = useLocation();
 
-   if ( pathname === '/' ) return ;
+   if ( pathname === '/' || pathname === '/login' ) return ;
 
-   const paths = isLoading ? [] : pathname.slice(1).split('/');
+   if ( isLoading ) return ;
 
-   const appPaths = () => paths.map( path => {
-         if ( categories.some( category => category.name.toLowerCase() === paths[0] ) ) {
-            return (
-               <>
-                  <NavLink key={ path } to="/products">
-                     Products
-                  </NavLink>
-                  <span>
-                     { toCapitalize( paths[0] ) }
-                  </span>
-               </>
-            );
-         };
+   const paths = pathname.slice(1).split('/');
 
+   const appPaths = () => {
+      if ( categories.some( category => category.name.toLowerCase() === paths[0] ) ) {
          return (
-            <NavLink key={ path } to={ '/'+path }>
-               { toCapitalize(path) }
-            </NavLink>
+            <>
+               <NavLink to="/products">
+                  Products
+               </NavLink>
+               <span>
+                  { toCapitalize( paths[0] ) }
+               </span>
+            </>
          );
-         
-      }
-   );
+      };
+
+      return (
+         paths.map( path => <NavLink key={ path } to={ '/'+path }>{ toCapitalize(path) }</NavLink> )
+      );
+   };
 
    const productPaths = () => {
       const { category, name } = products.find( product => product.id === paths[1] );

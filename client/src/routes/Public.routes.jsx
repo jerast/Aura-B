@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import { LoginPage } from '@/modules/session';
+import { LoginPage } from '@/modules/auth';
 import { CategoriesPage, ProductsPage, HomePage, ProductPage } from '@/modules/shop';
 
 export const PublicRoutes = () => {

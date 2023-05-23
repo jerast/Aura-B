@@ -90,7 +90,7 @@ export const Navbar = () => {
 					</span>
 					<div className="Navbar__controls-login-dropdown">
 						<ul>
-							<li><Link to='/account'>My Account</Link></li>
+							{/* <li><Link to='/account'>My Account</Link></li> */}
 							<li><Link to='/account/orders'>My Orders</Link></li>
 						</ul>
 						<ul>

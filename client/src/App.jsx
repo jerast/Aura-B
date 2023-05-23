@@ -7,19 +7,27 @@ export const App = () => {
 
    return (
       <>
-         <header className="Header">
-            <NotifyBar />
-            <Navbar />
-         </header>
+         {
+            pathname !== '/login' &&
+               <header className="Header">
+                  <NotifyBar />
+                  <Navbar />
+               </header>
+         }
          <main className={`Main${ (pathname !== '/') ? ' Main--content' : ''}`}>
-            {/* <Breadcrubs path={ pathname } /> */}
+            <Breadcrubs path={ pathname } />
             <AppRoutes />
          </main>
-         <footer className="Footer">
-            <Footer />
-         </footer>
-         <Sidebar />
-         <ShoppingCart />
+         {
+            pathname !== '/login' &&
+               <>
+                  <footer className="Footer">
+                     <Footer />
+                  </footer>
+                  <Sidebar />
+                  <ShoppingCart />
+               </>
+         }
       </>
    );
 };

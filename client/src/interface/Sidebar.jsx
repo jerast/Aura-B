@@ -1,14 +1,15 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useNavigate } from "react-router-dom";
-import { onToogleSidebar, startLogout } from "@/store";
-import { MdClose } from "react-icons/md";
-import { Search } from "@/interface";
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { onToogleSidebar, startLogout } from '@/store';
+import { DropdownButton, Search } from '@/interface';
+import { MdClose } from 'react-icons/md';
+import { RiLoader4Line } from 'react-icons/ri';
+import { FaRegUser } from 'react-icons/fa';
 
 export const Sidebar = () => {
-
 	const { isLoading, sidebarIsOpen } = useSelector( state => state.app );
-	const { status } = useSelector( state => state.session );
+	const { status, user } = useSelector( state => state.session );
 	const [ isShow, toogleShow ] = useState( false );
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -45,6 +46,29 @@ export const Sidebar = () => {
 						<button className="Sidebar__close-button fluid" onClick={ handleCloseSidebar }>
 							<MdClose />
 						</button>
+						<DropdownButton 
+							className="Navbar__controls-login"
+							disabled={ isLoading || status === 'checking' }
+							conditions={ !isLoading && status === 'auth' }
+						>
+							<span 
+								className={`Navbar__controls-login-button fluid ${ (status === 'auth' && !isLoading ) ? 'logged' : '' }`} 
+								onClick={ (status !== 'auth') ? handleLogin : null }
+							>
+								{ 
+									( isLoading || status === 'checking' )
+									? 	<RiLoader4Line className="animate-spin text-2xl"/>
+									: 	( status === 'auth' ) 
+										? user.name[0]+user.surname[0]
+										: <FaRegUser /> 
+								}
+							</span>
+							<div className="Navbar__controls-login-dropdown">
+								<ul>
+									<li><span onClick={ handleLogout }>Log Out</span></li>
+								</ul>
+							</div>
+						</DropdownButton>
 					</div>
 					<Search />
 					<ul className="Sidebar__group">

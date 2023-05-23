@@ -40,13 +40,15 @@ export const startVerifyingSession = () =>
    };
 
 export const startSignin = ({ name, surname, email, password, phone }) => 
-	async (dispatch, getState) => {
+	async (dispatch) => {
       try {
          const { data } = await shopApi.post('/users/new', { name, surname, email, password, phone })
          dispatch( startLogin( data.user ) );
+			return data.ok;
       }  
       catch ({ response }) {
          dispatch( startLogout(response.data.message) );
+			return response.data.ok;
       }
    };
 
@@ -59,8 +61,10 @@ export const startLogin = ({ email, password }) =>
 			localStorage.setItem( 'sessionToken', data.token );
 			dispatch( onLogin( data.user ) );
 			dispatch( startLoadingOrders() );
+			return data.ok;
 		} catch ({ response }) {
 			dispatch( startLogout(response.data.message) );
+			return response.data.ok;
 		}
 	};
 
@@ -71,7 +75,7 @@ export const startLogout = ( message ) =>
 		// dispatch( clearActiveOrder() );
 
 		if (message) {
-			setTimeout(() => dispatch(clearErrorMessage()), 10)
+			// setTimeout(() => dispatch(clearErrorMessage()), 10)
 		}
 	};
 
