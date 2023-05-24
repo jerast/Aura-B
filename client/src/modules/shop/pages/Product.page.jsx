@@ -74,12 +74,12 @@ export const ProductPage = () => {
 					</div>
 				</div>
 			</section>
-			<section className="Section">
+			{/* <section className="Section">
 				<h1 className="Section__title">Related Products</h1>
 				<article className="Section__content Section__content--products">
 					
 				</article>
-			</section>
+			</section> */}
 		</>
 	);
 };

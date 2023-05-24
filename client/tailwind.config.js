@@ -8,7 +8,10 @@ export default {
     extend: {
       height: {
         'main': 'calc(100vh - 6.5rem)'
-      }
+      },
+      fontFamily: {
+        'inter': ['Inter', 'sans']
+      },
     },
   },
   plugins: [
