@@ -8,7 +8,7 @@ import {
 	startSettingOrder 
 } from '@/store';
 
-export const useShoppingCart = ( id ) => {
+export const useShoppingCart = ({ id }) => {
 	const { shoppingCart } = useSelector( state => state.app );
 	const { products } = useSelector( state => state.shop );
 	const [ productCounter, setProductCounter ] = useState(0);
@@ -34,17 +34,17 @@ export const useShoppingCart = ( id ) => {
 			product: product.id,
 			prices: product.prices,
 		}) );
-		setProductCounter( productCounter + 1 );
+		// setProductCounter( productCounter + 1 );
 		dispatch( startSetShoppingCart() );
 	};
 
 	const onReduceToShoppingCart = () => {
 		onSettingOrder( 'reduce' );
 		dispatch( startReduceToShoppingCart({
-			product: product.id,
-			prices: product.prices,
+				product: product.id,
+				prices: product.prices,
 		}) );
-		setProductCounter( productCounter + 0 );
+		// setProductCounter( productCounter - 1 );
 		dispatch( startSetShoppingCart() );
 	};
 

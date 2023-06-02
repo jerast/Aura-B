@@ -5,7 +5,7 @@ import { MdOutlineAddShoppingCart } from 'react-icons/md';
 import { TbDiscountCheckFilled } from 'react-icons/tb';
 
 export const ProductCard = ({ product }) => {
-	const { onAddToShoppingCart } = useShoppingCart( product.id );
+	const { onAddToShoppingCart } = useShoppingCart({ id: product.id });
 
 	return (
 		<div className="ProductCard ProductCart--primary" key={ product.id }>

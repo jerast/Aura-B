@@ -9,7 +9,7 @@ export const CheckoutProductCard = ({ id }) => {
 	const { 
 		product,
 		productCounter,
-	} = useShoppingCart( id );
+	} = useShoppingCart({ id });
 
 	return (
 		<div className="OrderProductCard fluid">

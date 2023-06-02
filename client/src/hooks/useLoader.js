@@ -15,9 +15,7 @@ export const useLoader = () => {
 	const { pathname } = useLocation();
 	const dispatch = useDispatch();
 
-	useEffect(() => {
-		handleLoadingData();
-	}, []);
+	useEffect( handleLoadingData, [] );
 	
 	const handleLoadingData = async () => {
 		await dispatch( startVerifyingSession() );

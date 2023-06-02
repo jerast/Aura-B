@@ -104,7 +104,7 @@ export const startReduceToShoppingCart = ( productToUpdate, count = 1  ) =>
 		const { shoppingCart } = getState().app;
 		const productIndex = shoppingCart.findIndex( prod => prod.product === productToUpdate.product );
 
-		if ( shoppingCart[productIndex].count === 1 ) 
+		if ( shoppingCart[productIndex].count <= count ) 
 			return dispatch( onRemoveProductShoppingCart( productIndex ));
 
 		dispatch( onMinusProductShoppingCart({ index: productIndex, count }) );

@@ -15,7 +15,7 @@ export const ShoppingCartItem = ({ id }) => {
 		onAddToShoppingCart, 
 		onReduceToShoppingCart, 
 		onRemoveToShoppingCart 
-	} = useShoppingCart( id );
+	} = useShoppingCart({ id });
 
 	const handleBackToProduct = () => {
 		dispatch( onToogleShoppingCart() );
