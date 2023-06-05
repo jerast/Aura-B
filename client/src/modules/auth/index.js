@@ -1,6 +1,6 @@
 // Pages
-export * from './pages/Login.page';
+export * from './pages/Login.page'
 
 // Components
-export * from './components/Input';
-export * from './components/Button';
+export * from './components/Input'
+export * from './components/Button'

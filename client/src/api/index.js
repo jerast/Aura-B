@@ -1,2 +1,2 @@
 // Shop
-export * from './shop.api';
+export * from './shop.api'

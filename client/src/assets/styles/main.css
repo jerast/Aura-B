@@ -337,7 +337,7 @@
 	}
 
 	.Category {
-		@apply relative aspect-square overflow-hidden rounded-2xl lg:rounded-2xl hover:shadow-xl shadow-md shadow-gray-300;
+		@apply relative aspect-square overflow-hidden rounded-2xl lg:rounded-2xl;
 	}
 	.Category__image {
 		@apply h-full w-full object-cover object-center;
@@ -418,7 +418,7 @@
 		@apply flex flex-col h-auto gap-3;
 	}
 	.ProductCard__image {
-		@apply w-full aspect-square rounded-xl object-cover object-center bg-gray-200 bg-opacity-70 shadow-md
+		@apply w-full aspect-square rounded-xl object-cover object-center bg-gray-200 bg-opacity-70
 	}
 	.ProductCard__info {
 		@apply flex-grow;
@@ -605,7 +605,7 @@
 		@apply relative cursor-text text-gray-700
 	}
 	.form__input-field {
-		@apply outline-violet-400 focus-visible:outline-violet-400 bg-transparent h-[52px] border rounded-full border-gray-300 px-4 ease-linear duration-100 w-full
+		@apply outline-transparent focus-visible:outline-violet-400 bg-transparent h-[52px] border rounded-full border-gray-300 px-4 w-full ease-in-out duration-300
 	}
 	.form__input-label {
 		@apply absolute my-[14px] mx-4 px-2 top-0 left-0 bg-white rounded-full ease-linear duration-100 text-gray-500

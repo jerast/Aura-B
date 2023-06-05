@@ -1,143 +1,132 @@
-import { 
-	getLastOrder, 
-	getLastShoppingCart, 
-	setLastOrder, 
-	setLastShoppingCart,
-} from '@/helpers';
-import { 
-	setActiveProduct, 
-	onAddProductShoppingCart, 
-	onPlusProductShoppingCart, 
-	onSetOrder, 
-	onMinusProductShoppingCart, 
-	onRemoveProductShoppingCart, 
-	onSetShoppingCart,
-	setActiveOrder,
-} from '../slices/app.slice';
+import {
+  getLastOrder,
+  getLastShoppingCart,
+  setLastOrder,
+  setLastShoppingCart
+} from '@/helpers'
+import {
+  setActiveProduct,
+  onAddProductShoppingCart,
+  onPlusProductShoppingCart,
+  onSetOrder,
+  onMinusProductShoppingCart,
+  onRemoveProductShoppingCart,
+  onSetShoppingCart,
+  setActiveOrder
+} from '../slices/app.slice'
 
-export const startLoadingSelectedOrder = ( order_id ) =>
-	(dispatch, getState) => {
-		const { orders } = getState().session;
+export const startLoadingSelectedOrder = (orderId) =>
+  (dispatch, getState) => {
+    const { orders } = getState().session
 
-		const findOrder = orders.find( order => order.id === order_id );
-		if ( !findOrder ) return;
+    const findOrder = orders.find((order) => order.id === orderId)
+    if (!findOrder) return
 
-		dispatch( setActiveOrder(findOrder) );
+    dispatch(setActiveOrder(findOrder))
+  }
 
-		// try {
-		// 	const { data } = await shopApi.get(`/orders/${ order_id }`);
-		// } catch (error) {
-		// 	console.error( `Something's wrong on Request` );
-		// }
-	};
+export const startLoadingSelectedProduct = (productId) =>
+  (dispatch, getState) => {
+    const { products } = getState().shop
 
-export const startLoadingSelectedProduct = ( product_id ) =>
-	(dispatch, getState) => {
-		const { products } = getState().shop;
+    const findProduct = products.find((product) => product.id === productId)
+    if (!findProduct) return
 
-		const findProduct = products.find( product => product.id === product_id );
-		if ( !findProduct ) return;
+    dispatch(setActiveProduct(findProduct))
+  }
 
-		dispatch( setActiveProduct(findProduct) );
+export const startSettingOrder = ({ action, prices }) =>
+  (dispatch, getState) => {
+    const { order } = getState().app
 
-		// try {
-		// 	const { data } = await shopApi.get(`/orders/${ product_id }`);
-		// } catch (error) {
-		// 	console.error( `Something's wrong on Request` );
-		// }
-	};
+    let orderTotalItems, orderPrices
 
-export const startSettingOrder = ({ action, prices }) => 
-	(dispatch, getState) => {
-		const { order } = getState().app;
+    switch (action) {
+      case 'add':
+        orderTotalItems = order.total_products + 1
+        orderPrices = {
+          retail: order.total_prices.retail + prices.retail,
+          wholesale: order.total_prices.wholesale + prices.wholesale
+        }
+        break
 
-		let total_items, total_order;
+      case 'reduce':
+        orderTotalItems = order.total_products - 1
+        orderPrices = {
+          retail: order.total_prices.retail - prices.retail,
+          wholesale: order.total_prices.wholesale - prices.wholesale
+        }
+        break
 
-		switch ( action ) {
-			case 'add':
-				total_items = order.total_products + 1;
-				total_order = {
-					retail: order.total_prices.retail + prices.retail,
-					wholesale: order.total_prices.wholesale + prices.wholesale,
-				};
-				break;
+      default:
+        orderTotalItems = order.total_products
+        orderPrices = {
+          retail: order.total_prices.retail,
+          wholesale: order.total_prices.wholesale
+        }
+        break
+    }
 
-			case 'reduce':
-				total_items = order.total_products - 1;
-				total_order = {
-					retail: order.total_prices.retail - prices.retail,
-					wholesale: order.total_prices.wholesale - prices.wholesale,
-				};
-				break;
-		
-			default:
-				total_items = order.total_products;
-				total_order = {
-					retail: order.total_prices.retail,
-					wholesale: order.total_prices.wholesale,
-				};
-				break;
-		};
+    const initOrder = {
+      total_products: orderTotalItems,
+      total_prices: orderPrices
+    }
 
-		const initOrder = {
-			total_products: total_items,
-			total_prices: total_order,
-		};
+    dispatch(onSetOrder(initOrder))
+  }
 
-		dispatch( onSetOrder( initOrder ));
-	};
+export const startAddToShoppingCart = (productToUpdate, count = 1) =>
+  (dispatch, getState) => {
+    const { shoppingCart } = getState().app
+    const productIndex = shoppingCart.findIndex((shoppingProduct) => shoppingProduct.product === productToUpdate.product)
 
-export const startAddToShoppingCart = ( productToUpdate, count = 1 ) => 
-	(dispatch, getState) => {
-		const { shoppingCart } = getState().app;
-		const productIndex = shoppingCart.findIndex( prod => prod.product === productToUpdate.product );
-		
-		if ( productIndex === -1 ) {
-			return dispatch( onAddProductShoppingCart({ ...productToUpdate, count }) );
-		}
+    if (productIndex === -1) {
+      return dispatch(onAddProductShoppingCart({ ...productToUpdate, count }))
+    }
 
-		dispatch( onPlusProductShoppingCart({ index: productIndex, count }) );
-	};
+    dispatch(onPlusProductShoppingCart({ index: productIndex, count }))
+  }
 
-export const startReduceToShoppingCart = ( productToUpdate, count = 1  ) => 
-	(dispatch, getState) => {
-		const { shoppingCart } = getState().app;
-		const productIndex = shoppingCart.findIndex( prod => prod.product === productToUpdate.product );
+export const startReduceToShoppingCart = (productToUpdate, count = 1) =>
+  (dispatch, getState) => {
+    const { shoppingCart } = getState().app
+    const productIndex = shoppingCart.findIndex((prod) => prod.product === productToUpdate.product)
 
-		if ( shoppingCart[productIndex].count <= count ) 
-			return dispatch( onRemoveProductShoppingCart( productIndex ));
+    if (shoppingCart[productIndex].count <= count) {
+      return dispatch(onRemoveProductShoppingCart(productIndex))
+    }
 
-		dispatch( onMinusProductShoppingCart({ index: productIndex, count }) );
-	};
+    dispatch(onMinusProductShoppingCart({ index: productIndex, count }))
+  }
 
-export const startRemoveToShoppingCart = ( id ) => 
-	 (dispatch, getState) => {
-		const { order, shoppingCart } = getState().app;
-		const productIndex = shoppingCart.findIndex( prod => prod.product === id );
-		const { prices, count } = shoppingCart[ productIndex ];
+export const startRemoveToShoppingCart = (productId) =>
+  (dispatch, getState) => {
+    const { order, shoppingCart } = getState().app
+    const productIndex = shoppingCart.findIndex((shoppingProduct) => shoppingProduct.product === productId)
+    const { prices, count } = shoppingCart[productIndex]
 
-		const initOrder = {
-			total_products: order.total_products - count,
-			total_prices: {
-				retail: order.total_prices.retail - (prices.retail * count),
-				wholesale: order.total_prices.wholesale - (prices.wholesale * count),
-			},
-		};
+    const initOrder = {
+      total_products: order.total_products - count,
+      total_prices: {
+        retail: order.total_prices.retail - prices.retail * count,
+        wholesale: order.total_prices.wholesale - prices.wholesale * count
+      }
+    }
 
-		dispatch( onSetOrder( initOrder ));
-		dispatch( onRemoveProductShoppingCart( productIndex ));
-	};
+    dispatch(onSetOrder(initOrder))
+    dispatch(onRemoveProductShoppingCart(productIndex))
+  }
 
-export const startSetShoppingCart = () => 
-	(dispatch, getState) => {
-		const { order, shoppingCart } = getState().app;
+export const startSetShoppingCart = () =>
+  (dispatch, getState) => {
+    const { order, shoppingCart } = getState().app
 
-		setLastOrder( order );
-		setLastShoppingCart( shoppingCart );
-	};
+    setLastOrder(order)
+    setLastShoppingCart(shoppingCart)
+  }
 
-export const startGetShoppingCart = () => 
-	(dispatch) => {
-		(getLastOrder) && dispatch( onSetOrder(getLastOrder));
-		(getLastShoppingCart) && dispatch( onSetShoppingCart(getLastShoppingCart));
-	};
+export const startGetShoppingCart = () =>
+  (dispatch) => {
+    getLastOrder && dispatch(onSetOrder(getLastOrder))
+    getLastShoppingCart && dispatch(onSetShoppingCart(getLastShoppingCart))
+  }

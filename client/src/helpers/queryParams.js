@@ -1,15 +1,14 @@
-export const queryParams = ( params ) => {
-   if ( !params ) return;
+export const queryParams = (params) => {
+  if (!params) return
 
-   let queryObject = {};
+  const queryObject = {}
 
-   const propsParams = params.slice(1).split('&');
+  const propsParams = params.slice(1).split('&')
 
-   propsParams.forEach( property => {
-      const object = property.split('=');
+  propsParams.forEach((property) => {
+    const object = property.split('=')
+    queryObject[object[0]] = object[1]
+  })
 
-      queryObject[ object[0] ] = object[1];
-   });
-
-   return queryObject;
-}; 
+  return queryObject
+}
