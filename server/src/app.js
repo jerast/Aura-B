@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import categoriesRoutes from './routes/categories.routes.js';
 import productsRoutes from './routes/products.routes.js';
+import bannersRoutes from './routes/banners.routes.js';
 import ordersRoutes from './routes/orders.routes.js';
 import resuppliesRoutes from './routes/resupplies.routes.js';
 import usersRoutes from './routes/users.routes.js';
@@ -15,6 +16,7 @@ app.use( express.json() );
 // Routes
 app.use( '/api/categories', categoriesRoutes );
 app.use( '/api/products', productsRoutes );
+app.use( '/api/banners', bannersRoutes );
 app.use( '/api/orders', ordersRoutes );
 app.use( '/api/resupplies', resuppliesRoutes );
 app.use( '/api/users', usersRoutes );
